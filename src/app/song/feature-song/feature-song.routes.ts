@@ -8,4 +8,11 @@ export const featureSongRoutes: Routes = [
         (m) => m.SongsListComponent
       ),
   },
+  {
+    path: 'new',
+    loadComponent: () =>
+      import('./containers/add-song/add-song.component').then(
+        (m) => m.AddSongComponent
+      ),
+  },
 ];
