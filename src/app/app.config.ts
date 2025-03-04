@@ -8,6 +8,7 @@ import {
 import { routes } from './app.routes';
 import { API_URL } from 'util-environment';
 import { provideHttpClient, withFetch } from '@angular/common/http';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -19,5 +20,9 @@ export const appConfig: ApplicationConfig = {
       provide: API_URL,
       useValue: 'http://localhost:3000',
     },
+    {
+      provide: MAT_DATE_LOCALE,
+      useValue: 'es-ES',
+    }
   ],
 };
