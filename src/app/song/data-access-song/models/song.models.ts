@@ -8,7 +8,7 @@ export interface Song {
   year: number;
   duration: number;
   rating: number;
-  artist: Artist;
+  artist?: Artist;
   artistId: number;
   country?: string;
   company?: string;
