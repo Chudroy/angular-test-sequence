@@ -8,7 +8,7 @@
       "year": 2007,
       "duration": 424,
       "rating": 9.27,
-      "artist": 1
+      "artistId": 1
     },
     {
       "id": 2,
@@ -18,7 +18,7 @@
       "year": 1967,
       "duration": 303,
       "rating": 8.99,
-      "artist": 2
+      "artistId": 2
     },
     {
       "id": 3,
@@ -28,7 +28,7 @@
       "year": 1974,
       "duration": 206,
       "rating": 6.25,
-      "artist": 2
+      "artistId": 2
     },
     {
       "id": 4,
@@ -38,7 +38,7 @@
       "year": 1965,
       "duration": 290,
       "rating": 6.66,
-      "artist": 4
+      "artistId": 4
     },
     {
       "id": 5,
@@ -48,7 +48,7 @@
       "year": 1982,
       "duration": 217,
       "rating": 8.36,
-      "artist": 5
+      "artistId": 5
     },
     {
       "id": 6,
@@ -58,7 +58,7 @@
       "year": 1995,
       "duration": 340,
       "rating": 7.99,
-      "artist": 1
+      "artistId": 1
     },
     {
       "id": 7,
@@ -68,7 +68,7 @@
       "year": 1972,
       "duration": 305,
       "rating": 6.77,
-      "artist": 5
+      "artistId": 5
     },
     {
       "id": 8,
@@ -78,7 +78,7 @@
       "year": 1973,
       "duration": 217,
       "rating": 8.36,
-      "artist": 4
+      "artistId": 4
     },
     {
       "id": 9,
@@ -88,7 +88,7 @@
       "year": 1997,
       "duration": 399,
       "rating": 8.07,
-      "artist": 6
+      "artistId": 6
     },
     {
       "id": 10,
@@ -98,7 +98,7 @@
       "year": 1960,
       "duration": 503,
       "rating": 9.99,
-      "artist": 7
+      "artistId": 7
     },
     {
       "id": 11,
@@ -108,7 +108,7 @@
       "year": 1962,
       "duration": 502,
       "rating": 8.39,
-      "artist": 7
+      "artistId": 7
     }
   ],
   "artists": [
