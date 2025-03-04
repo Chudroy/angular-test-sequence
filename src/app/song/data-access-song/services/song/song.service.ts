@@ -10,10 +10,11 @@ import { Song } from '../../models/song.models';
 export class SongService {
   #http = inject(HttpClient);
   readonly #API_URL = inject(API_URL);
-  readonly #SONGS_URL = this.#API_URL + '/songs';
+  readonly #SONGS_URL = this.#API_URL + '/songs?_embed=artist';
 
   getSongs(): Observable<Song[]> {
     return this.#http.get<Song[]>(this.#SONGS_URL).pipe(
+      tap((songs) => console.log(songs)),
       catchError((error) => {
         console.error(error);
         return throwError(() => error);
