@@ -1,0 +1,13 @@
+<mat-sidenav-container class="example-container" (backdropClick)="toggleSidenav($event)">
+  <mat-sidenav mode="over" [opened]="sidenavStore.isOpenSidenav()">
+    <mat-nav-list>
+      <mat-list-item i18n>Canciones</mat-list-item>
+      <mat-list-item i18n>Artistas</mat-list-item>
+      <mat-list-item i18n>Compañías discográficas</mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>
