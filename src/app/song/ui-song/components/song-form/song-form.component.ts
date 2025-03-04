@@ -50,12 +50,12 @@ export class SongFormComponent {
 
     this.songForm.patchValue({
       title: song.title,
-      artist: song.artist.name,
+      artist: song.artist?.name,
       country: song.country,
       year: song.year.toString(),
       rating: song.rating,
       genres: song.genre,
-      companies: [song.company || ''],
+      companies: song.company ? [song.company] : [],
     });
   });
 
