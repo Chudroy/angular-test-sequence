@@ -1,11 +1,11 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  effect,
   inject,
   OnInit,
 } from '@angular/core';
 import { SongsStore } from './songs-list.signal-store';
+import { HeaderStore } from 'shared/ui';
 
 @Component({
   selector: 'app-songs-list',
@@ -16,8 +16,11 @@ import { SongsStore } from './songs-list.signal-store';
 })
 export class SongsListComponent implements OnInit {
   songStore = inject(SongsStore);
+  headerStore = inject(HeaderStore);
 
   ngOnInit(): void {
+    const songsTitle = $localize`Canciones`;
+    this.headerStore.setTitle(songsTitle);
     this.songStore.getSongs();
   }
 }
