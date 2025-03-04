@@ -9,7 +9,7 @@ export const routes: Routes = [
       {
         path: 'feature-song',
         loadChildren: () =>
-          import('feature-song').then((m) => m.featureSongRoutes),
+          import('src/app/song/feature-song/feature-song.routes').then((m) => m.featureSongRoutes),
       },
       {
         path: '**',
