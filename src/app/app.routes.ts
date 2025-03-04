@@ -7,13 +7,13 @@ export const routes: Routes = [
     component: LayoutComponent,
     children: [
       {
-        path: 'feature-song',
+        path: 'songs',
         loadChildren: () =>
           import('src/app/song/feature-song/feature-song.routes').then((m) => m.featureSongRoutes),
       },
       {
         path: '**',
-        redirectTo: 'feature-song',
+        redirectTo: 'songs',
       },
     ],
   },
