@@ -23,7 +23,8 @@
       "feature-layout": ["src/app/shared/feature-layout/index.ts"],
       "feature-song": ["src/app/song/feature-song/feature-song.routes.ts"],
       "data-access-song": ["src/app/song/data-access-song/index.ts"],
-      "shared/ui": ["src/app/shared/ui/index.ts"]
+      "shared/ui": ["src/app/shared/ui/index.ts"],
+      "data-access-artist": ["src/app/artist/data-access-artist/index.ts"]
     }
   },
   "angularCompilerOptions": {
