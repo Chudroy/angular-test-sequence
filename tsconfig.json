@@ -19,8 +19,10 @@
     "module": "ES2022",
     "baseUrl": ".",
     "paths": {
+      "util-environment": ["src//app/shared/util-environment/index.ts"],
       "feature-layout": ["src/app/shared/feature-layout/index.ts"],
-      "feature-song": ["src/app/feature-song/feature-song.routes.ts"]
+      "feature-song": ["src/app/song/feature-song/feature-song.routes.ts"],
+      "data-access-song": ["src/app/song/data-access-song/index.ts"]
     }
   },
   "angularCompilerOptions": {
