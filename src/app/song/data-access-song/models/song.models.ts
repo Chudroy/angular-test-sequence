@@ -1,3 +1,5 @@
+import { Artist } from 'data-access-artist';
+
 export interface Song {
   id: number;
   title: string;
@@ -6,5 +8,8 @@ export interface Song {
   year: number;
   duration: number;
   rating: number;
-  artist: number;
+  artist: Artist;
+  artistId: number;
+  country?: string;
+  company?: string;
 }
