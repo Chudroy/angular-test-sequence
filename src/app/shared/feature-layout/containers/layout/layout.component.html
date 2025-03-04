@@ -1,3 +1,4 @@
-<app-header></app-header>
-
-<router-outlet />
+<app-side-nav>
+  <app-header (toggleSidenav)="onToggleSidenav()"></app-header>
+  <router-outlet />
+</app-side-nav>

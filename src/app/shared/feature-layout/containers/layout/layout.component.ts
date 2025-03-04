@@ -1,12 +1,18 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { HeaderComponent } from 'shared/ui';
+import { HeaderComponent, SideNavComponent, SidenavStore } from 'shared/ui';
 
 @Component({
   selector: 'app-layout',
-  imports: [RouterOutlet, HeaderComponent],
+  imports: [RouterOutlet, HeaderComponent, SideNavComponent],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LayoutComponent {}
+export class LayoutComponent {
+  sidenavStore = inject(SidenavStore);
+
+  onToggleSidenav() {
+    this.sidenavStore.toggleSidenav();
+  }
+}
