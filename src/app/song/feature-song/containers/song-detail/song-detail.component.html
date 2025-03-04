@@ -1,0 +1,48 @@
+@let song = songsStore.songDetail(); @if (song) {
+<mat-card class="song-detail__card">
+  <mat-card-header>
+    <mat-card-title
+      >{{ song?.title }} ({{ song?.artist?.name }})</mat-card-title
+    >
+  </mat-card-header>
+  <img mat-card-image src="dummy_600x400_ffffff_cccccc.png" alt="Song poster" />
+  <mat-card-content>
+    <p i18n>Género</p>
+    @for (tag of song?.genre; track $index) {
+    <mat-chip>{{ tag }}</mat-chip>
+    }
+    <div class="details">
+      @if (song?.company) {
+      <p i18n>Compañía discográfica:</p>
+      @for (company of song?.company?.split(','); track company) {
+      <mat-chip>{{ company.trim() }}</mat-chip>
+      } } @if (song?.country) {
+      <p><strong>País:</strong> {{ song?.country }}</p>
+      }
+      <p><strong>Año:</strong> {{ song?.year }}</p>
+    </div>
+  </mat-card-content>
+</mat-card>
+}
+
+<div class="song-detail__floating-buttons">
+  <button
+    mat-fab
+    color="primary"
+    class="songs-list__add-song-button"
+    [matTooltip]="editTooltip()"
+    [routerLink]="['edit']"
+  >
+    <mat-icon>edit</mat-icon>
+  </button>
+
+  <button
+    mat-fab
+    color="primary"
+    class="songs-list__add-song-button"
+    [matTooltip]="deleteTooltip()"
+    (click)="onDelete()"
+  >
+    <mat-icon>delete</mat-icon>
+  </button>
+</div>
