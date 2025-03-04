@@ -1,3 +1,24 @@
 @let songs = songStore.songs(); @for(song of songs; track song.id){
-<p>{{ song.title }}</p>
+<mat-card appearance="raised" class="songs-list__card">
+  <mat-card-header>
+    <mat-card-title>{{ song.title }} ({{ song.artist }})</mat-card-title>
+  </mat-card-header>
+
+  <img mat-card-image src="dummy_600x400_ffffff_cccccc.png" alt="" />
+
+  <mat-card-content>
+    @for (genre of song.genre; track $index) {
+    <mat-chip>{{ genre }}</mat-chip>
+    }
+  </mat-card-content>
+</mat-card>
 }
+
+<button
+  mat-fab
+  color="primary"
+  class="songs-list__add-song-button"
+  [matTooltip]="tooltip()"
+>
+  <mat-icon>add</mat-icon>
+</button>
