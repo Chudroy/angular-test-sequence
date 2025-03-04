@@ -1,50 +1,29 @@
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { Component, inject } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { provideLuxonDateAdapter } from '@angular/material-luxon-adapter';
-import { MatButtonModule } from '@angular/material/button';
-import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
-import { MatOptionModule } from '@angular/material/core';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
+import { Component, inject, input } from '@angular/core';
 import { Song } from 'data-access-song';
 import { HeaderStore } from 'shared/ui';
 import { SongFormComponent } from 'src/app/song/ui-song/components/song-form/song-form.component';
+import { SongsStore } from '../songs-list/songs-list.signal-store';
 
 @Component({
   selector: 'app-add-song',
-  imports: [
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    FormsModule,
-    MatChipsModule,
-    MatIconModule,
-    MatOptionModule,
-    MatDatepickerModule,
-    MatInputModule,
-    MatButtonModule,
-    MatSelectModule,
-    SongFormComponent,
-  ],
-  providers: [provideLuxonDateAdapter()],
+  imports: [SongFormComponent],
   templateUrl: './edit-song.component.html',
   styleUrl: './edit-song.component.scss',
 })
-export class AddSongComponent {
+export class EditSongComponent {
+  songsStore = inject(SongsStore);
   headerStore = inject(HeaderStore);
+
+  songId = input<string>();
 
   ngOnInit(): void {
     const title = $localize`Editar canción`;
     this.headerStore.setTitle(title);
+
+    if (!this.songsStore.songDetail()) {
+      const songId = this.songId();
+      this.songsStore.getSongDetail(songId);
+    }
   }
 
   onSubmit($event: Song): void {

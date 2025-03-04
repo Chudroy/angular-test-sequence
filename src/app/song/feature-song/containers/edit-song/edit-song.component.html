@@ -1,1 +1,6 @@
-<app-song-form (songFormSubmitted)="onSubmit($event)"></app-song-form>
+@let song = songsStore.songDetail() || undefined;
+
+<app-song-form
+  [song]="song"
+  (songFormSubmitted)="onSubmit($event)"
+></app-song-form>
