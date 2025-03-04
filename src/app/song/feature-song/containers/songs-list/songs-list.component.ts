@@ -12,6 +12,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatIconModule } from '@angular/material/icon';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-songs-list',
@@ -21,6 +22,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatChipsModule,
     MatTooltipModule,
     MatIconModule,
+    RouterModule,
   ],
   templateUrl: './songs-list.component.html',
   styleUrl: './songs-list.component.scss',
