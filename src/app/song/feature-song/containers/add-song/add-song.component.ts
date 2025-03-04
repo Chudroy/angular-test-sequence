@@ -5,10 +5,7 @@ import { SongFormComponent } from 'src/app/song/ui-song/components/song-form/son
 
 @Component({
   selector: 'app-add-song',
-  imports: [
-    
-    SongFormComponent,
-  ],
+  imports: [SongFormComponent],
   templateUrl: './add-song.component.html',
   styleUrl: './add-song.component.scss',
 })
