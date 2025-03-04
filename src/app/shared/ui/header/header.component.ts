@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  output,
+} from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -13,4 +18,9 @@ import { HeaderStore } from './header.signal-store';
 })
 export class HeaderComponent {
   headerStore = inject(HeaderStore);
+  toggleSidenav = output<void>();
+
+  onToggleSidenav() {
+    this.toggleSidenav.emit();
+  }
 }
