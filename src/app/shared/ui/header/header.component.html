@@ -1,6 +1,15 @@
 <mat-toolbar>
+  @if(headerStore.goBack()){
+
+  <button mat-icon-button (click)="onGoBack()">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+
+  } @else {
   <button mat-icon-button (click)="onToggleSidenav()">
     <mat-icon>menu</mat-icon>
   </button>
+  }
+
   <h1>{{ headerStore.title() }}</h1>
 </mat-toolbar>

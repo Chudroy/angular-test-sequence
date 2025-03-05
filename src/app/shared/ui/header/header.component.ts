@@ -19,8 +19,13 @@ import { HeaderStore } from './header.signal-store';
 export class HeaderComponent {
   headerStore = inject(HeaderStore);
   toggleSidenav = output<void>();
+  goBack = output<void>();
 
   onToggleSidenav() {
     this.toggleSidenav.emit();
+  }
+
+  onGoBack() {
+    this.goBack.emit();
   }
 }
