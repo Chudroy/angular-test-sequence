@@ -45,7 +45,10 @@ export class EditSongComponent {
 
   ngOnInit(): void {
     const title = $localize`Editar canción`;
-    this.headerStore.setTitle(title);
+    this.headerStore.setHeader({
+      title,
+      goBack: true,
+    });
 
     if (!this.songsStore.songDetail()) {
       const songId = this.songId();
