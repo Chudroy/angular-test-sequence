@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { catchError, Observable, tap, throwError } from 'rxjs';
+import { Song } from 'src/app/shared/data-access';
 import { API_URL } from 'util-environment';
-import { Song } from '../../models/song.models';
 
 @Injectable({
   providedIn: 'root',
@@ -10,13 +10,13 @@ import { Song } from '../../models/song.models';
 export class SongService {
   #http = inject(HttpClient);
   readonly #API_URL = inject(API_URL);
-  
-  readonly #SONGS_URL = this.#API_URL + '/songs?_expand=artist';
+
+  readonly #SONGS_URL = this.#API_URL + '/songs';
   readonly #SONG_DETAIL_URL = (songId: string) =>
-    `${this.#API_URL}/songs/${songId}?_embed=artist`;
+    `${this.#API_URL}/songs/${songId}`;
   readonly DELETE_SONG_URL = (songId: string) =>
     `${this.#API_URL}/songs/${songId}`;
-  
+
   getSongs(): Observable<Song[]> {
     return this.#http.get<Song[]>(this.#SONGS_URL).pipe(
       catchError((error) => {
