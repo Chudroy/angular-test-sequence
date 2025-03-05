@@ -24,6 +24,7 @@
       "feature-song": ["src/app/song/feature-song/feature-song.routes.ts"],
       "data-access-song": ["src/app/song/data-access-song/index.ts"],
       "shared/ui": ["src/app/shared/ui/index.ts"],
+      "shared/data-access": ["src/app/shared/data-access/index.ts"],
       "data-access-artist": ["src/app/artist/data-access-artist/index.ts"]
     }
   },
