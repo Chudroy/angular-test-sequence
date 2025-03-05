@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { Song } from 'shared/data-access';
 import { HeaderStore } from 'shared/ui';
 import { SongFormComponent } from 'src/app/song/ui-song/components/song-form/song-form.component';
+import { SongsStore } from '../songs-list/songs-list.signal-store';
 
 @Component({
   selector: 'app-add-song',
@@ -11,13 +12,19 @@ import { SongFormComponent } from 'src/app/song/ui-song/components/song-form/son
 })
 export class AddSongComponent {
   headerStore = inject(HeaderStore);
+  songsStore = inject(SongsStore);
 
   ngOnInit(): void {
     const title = $localize`Añadir canción`;
-    this.headerStore.setTitle(title);
+    this.headerStore.setHeader({
+      title,
+      goBack: true,
+    });
   }
 
   onSubmit($event: Song): void {
     console.log('Form Data:', $event);
+
+    this.songsStore.addSong($event);
   }
 }
