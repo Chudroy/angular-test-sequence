@@ -1,4 +1,9 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import {
+  ApplicationConfig,
+  provideZoneChangeDetection,
+  provideAppInitializer,
+  inject,
+} from '@angular/core';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 
 import {
@@ -9,6 +14,7 @@ import { routes } from './app.routes';
 import { API_URL } from 'util-environment';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { PopulateStore } from './shared/data-access';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,6 +22,9 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes, withComponentInputBinding()),
     provideClientHydration(withEventReplay()),
     provideHttpClient(withFetch()),
+    provideAppInitializer(() => {
+      inject(PopulateStore).fetchData();
+    }),
     {
       provide: API_URL,
       useValue: 'http://localhost:3000',
@@ -23,6 +32,6 @@ export const appConfig: ApplicationConfig = {
     {
       provide: MAT_DATE_LOCALE,
       useValue: 'es-ES',
-    }
+    },
   ],
 };
