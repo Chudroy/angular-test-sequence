@@ -6,11 +6,19 @@
       formControlName="title"
       placeholder="Indique el título de la canción"
     />
+    @if (songForm.get('title')?.hasError('required') &&
+    (songForm.get('title')?.touched || songForm.get('title')?.dirty)) {
+    <mat-error i18n>El título es obligatorio</mat-error>
+    }
   </mat-form-field>
 
   <mat-form-field appearance="outline">
     <mat-label i18n>Artista</mat-label>
     <input matInput formControlName="artist" placeholder="Indique el artista" />
+    @if (songForm.get('artist')?.hasError('required') &&
+    (songForm.get('artist')?.touched || songForm.get('artist')?.dirty)) {
+    <mat-error i18n>El artista es obligatorio</mat-error>
+    }
   </mat-form-field>
 
   <mat-form-field appearance="outline">
@@ -36,6 +44,10 @@
       [matChipInputAddOnBlur]="true"
       (matChipInputTokenEnd)="addGenre($event)"
     />
+    @if (songForm.get('genres')?.hasError('required') &&
+    (songForm.get('genres')?.touched || songForm.get('genres')?.dirty)) {
+    <mat-error i18n>Al menos un género es requerido</mat-error>
+    }
   </mat-form-field>
 
   <mat-form-field appearance="outline">
@@ -61,6 +73,10 @@
       [matChipInputAddOnBlur]="true"
       (matChipInputTokenEnd)="addCompany($event)"
     />
+    @if (songForm.get('companies')?.hasError('required') &&
+    (songForm.get('companies')?.touched || songForm.get('companies')?.dirty)) {
+    <mat-error i18n>Al menos una compañía es requerida</mat-error>
+    }
   </mat-form-field>
 
   <mat-form-field appearance="outline">
@@ -72,6 +88,10 @@
       </mat-option>
       }
     </mat-select>
+    @if (songForm.get('country')?.hasError('required') &&
+    (songForm.get('country')?.touched || songForm.get('country')?.dirty)) {
+    <mat-error i18n>El país es obligatorio</mat-error>
+    }
   </mat-form-field>
 
   <mat-form-field appearance="outline">
@@ -84,6 +104,10 @@
     />
     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
+    @if (songForm.get('year')?.hasError('required') &&
+    (songForm.get('year')?.touched || songForm.get('year')?.dirty)) {
+    <mat-error i18n>El año es obligatorio</mat-error>
+    }
   </mat-form-field>
 
   <mat-form-field appearance="outline">
@@ -94,6 +118,16 @@
       type="number"
       placeholder="Indique la puntuación"
     />
+    @if (songForm.get('rating')?.hasError('required') &&
+    (songForm.get('rating')?.touched || songForm.get('rating')?.dirty)) {
+    <mat-error i18n>La puntuación es obligatoria</mat-error>
+    } @if (songForm.get('rating')?.hasError('min') &&
+    (songForm.get('rating')?.touched || songForm.get('rating')?.dirty)) {
+    <mat-error i18n>La puntuación mínima es 1</mat-error>
+    } @if (songForm.get('rating')?.hasError('max') &&
+    (songForm.get('rating')?.touched || songForm.get('rating')?.dirty)) {
+    <mat-error i18n>La puntuación máxima es 10</mat-error>
+    }
   </mat-form-field>
 
   <button mat-raised-button color="primary" type="submit" i18n>Guardar</button>

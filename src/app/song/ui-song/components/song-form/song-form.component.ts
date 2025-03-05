@@ -46,17 +46,31 @@ export class SongFormComponent {
   populateSongForm = effect(() => {
     const song = this.song();
 
-    if (!song) return;
+    if (song) {
+      this.songForm.patchValue({
+        title: song.title,
+        artist: song._artist?.name,
+        country: song._company ? song._company.country : null,
+        year: song.year.toString(),
+        rating: song.rating,
+        genres: song.genre,
+        companies: song._company ? [song._company.name] : [],
+      });
 
-    this.songForm.patchValue({
-      title: song.title,
-      artist: song._artist?.name,
-      country: song._company ? song._company.country : null,
-      year: song.year.toString(),
-      rating: song.rating,
-      genres: song.genre,
-      companies: song._company ? [song._company.name] : [],
-    });
+      this.songForm.get('artist')?.disable();
+      this.songForm.get('country')?.disable();
+      this.songForm.get('companies')?.disable();
+    } else {
+      this.songForm.patchValue({
+        title: 'Test',
+        artist: 'Test',
+        country: 'Colombia',
+        year: '2021',
+        rating: 5,
+        genres: ['Rock'],
+        companies: ['Test Company'],
+      });
+    }
   });
 
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
