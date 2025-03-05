@@ -9,6 +9,13 @@ export const featureSongRoutes: Routes = [
       ),
   },
   {
+    path: 'new',
+    loadComponent: () =>
+      import('./containers/add-song/add-song.component').then(
+        (m) => m.AddSongComponent
+      ),
+  },
+  {
     path: ':songId',
     loadComponent: () =>
       import('./containers/song-detail/song-detail.component').then(
@@ -20,13 +27,6 @@ export const featureSongRoutes: Routes = [
     loadComponent: () =>
       import('./containers/edit-song/edit-song.component').then(
         (m) => m.EditSongComponent
-      ),
-  },
-  {
-    path: 'new',
-    loadComponent: () =>
-      import('./containers/add-song/add-song.component').then(
-        (m) => m.AddSongComponent
       ),
   },
 ];
