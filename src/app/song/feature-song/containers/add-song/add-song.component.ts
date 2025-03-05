@@ -23,8 +23,6 @@ export class AddSongComponent {
   }
 
   onSubmit($event: Song): void {
-    console.log('Form Data:', $event);
-
     this.songsStore.addSong($event);
   }
 }

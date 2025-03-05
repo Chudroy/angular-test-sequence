@@ -53,7 +53,6 @@ export class SongDetailComponent {
     const company = companies.find((c) => c.songs.includes(Number(song.id)));
 
     const companyCountries = companies.map((c) => c.country);
-    console.log('Company Countries:', companyCountries);
 
     const populatedSong: Song = {
       ...song,
@@ -61,7 +60,6 @@ export class SongDetailComponent {
       _company: company,
     };
 
-    console.log('Populated Song:', populatedSong);
 
     return populatedSong;
   });

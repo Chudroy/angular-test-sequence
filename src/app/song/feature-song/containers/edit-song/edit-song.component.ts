@@ -29,16 +29,11 @@ export class EditSongComponent {
     const artist = artists.find((a) => Number(a.id) === song.artist);
     const company = companies.find((c) => c.songs.includes(Number(song.id)));
 
-    const companyCountries = companies.map((c) => c.country);
-    console.log('Company Countries:', companyCountries);
-
     const populatedSong: Song = {
       ...song,
       _artist: artist,
       _company: company,
     };
-
-    console.log('Populated Song:', populatedSong);
 
     return populatedSong;
   });
@@ -57,6 +52,11 @@ export class EditSongComponent {
   }
 
   onSubmit($event: Song): void {
-    console.log('Form Data:', $event);
+    const song: Song = {
+      ...$event,
+      id: this.songId() || '',
+    };
+
+    this.songsStore.editSong(song);
   }
 }
