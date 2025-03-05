@@ -1,8 +1,9 @@
-@let song = songsStore.songDetail(); @if (song) {
+@let song = populatedSongDetail();
+
 <mat-card class="song-detail__card">
   <mat-card-header>
     <mat-card-title
-      >{{ song?.title }} ({{ song?.artist?.name }})</mat-card-title
+      >{{ song?.title }} ({{ song?._artist?.name }})</mat-card-title
     >
   </mat-card-header>
   <img mat-card-image src="dummy_600x400_ffffff_cccccc.png" alt="Song poster" />
@@ -12,18 +13,15 @@
     <mat-chip>{{ tag }}</mat-chip>
     }
     <div class="details">
-      @if (song?.company) {
       <p i18n>Compañía discográfica:</p>
-      @for (company of song?.company?.split(','); track company) {
-      <mat-chip>{{ company.trim() }}</mat-chip>
-      } } @if (song?.country) {
-      <p><strong>País:</strong> {{ song?.country }}</p>
-      }
+      @if(song?._company?.name) {
+      <mat-chip>{{ song?._company?.name }}</mat-chip>
+      } @else { -- }
+      <p><strong>País:</strong> {{ song?._company?.country || "--" }}</p>
       <p><strong>Año:</strong> {{ song?.year }}</p>
     </div>
   </mat-card-content>
 </mat-card>
-}
 
 <div class="song-detail__floating-buttons">
   <button

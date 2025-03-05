@@ -1,4 +1,11 @@
-import { Component, effect, inject, input, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  effect,
+  inject,
+  input,
+  signal,
+} from '@angular/core';
 import { SongsStore } from '../songs-list/songs-list.signal-store';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -7,6 +14,7 @@ import { HeaderStore } from 'shared/ui';
 import { RouterModule } from '@angular/router';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
+import { PopulateStore, Song } from 'shared/data-access';
 
 @Component({
   selector: 'app-song-detail',
@@ -24,11 +32,38 @@ import { MatButtonModule } from '@angular/material/button';
 export class SongDetailComponent {
   songsStore = inject(SongsStore);
   headerStore = inject(HeaderStore);
+  populateStore = inject(PopulateStore);
 
   deleteTooltip = signal($localize`Borrar canción`);
   editTooltip = signal($localize`Editar canción`);
 
   songId = input<string>();
+
+  populatedSongDetail = computed(() => {
+    const song = this.songsStore.songDetail();
+    const artists = this.populateStore.artists();
+    const companies = this.populateStore.companies();
+
+    if (!song || artists.length === 0 || companies.length === 0) {
+      return null;
+    }
+
+    const artist = artists.find((a) => Number(a.id) === song.artist);
+    const company = companies.find((c) => c.songs.includes(Number(song.id)));
+
+    const companyCountries = companies.map((c) => c.country);
+    console.log('Company Countries:', companyCountries);
+
+    const populatedSong: Song = {
+      ...song,
+      _artist: artist,
+      _company: company,
+    };
+
+    console.log('Populated Song:', populatedSong);
+
+    return populatedSong;
+  });
 
   setHeader = effect(() => {
     const songDetail = this.songsStore.songDetail();
