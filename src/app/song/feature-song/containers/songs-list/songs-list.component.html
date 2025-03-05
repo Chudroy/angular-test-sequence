@@ -1,7 +1,8 @@
-@let songs = songStore.songs(); @for(song of songs; track song.id){
+@let songs = populatedSongs(); @for(song of songs; track song.id){
+
 <mat-card appearance="raised" class="songs-list__card" [routerLink]="[song.id]">
   <mat-card-header>
-    <mat-card-title>{{ song.title }} ({{ song.artist?.name }})</mat-card-title>
+    <mat-card-title>{{ song.title }} ({{ song._artist?.name }})</mat-card-title>
   </mat-card-header>
 
   <img mat-card-image src="dummy_600x400_ffffff_cccccc.png" alt="" />

@@ -1,18 +1,21 @@
+import { JsonPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   inject,
   OnInit,
   signal,
 } from '@angular/core';
-import { SongsStore } from './songs-list.signal-store';
-import { HeaderStore } from 'shared/ui';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule } from '@angular/router';
+import { PopulateStore } from 'shared/data-access';
+import { HeaderStore } from 'shared/ui';
+import { SongsStore } from './songs-list.signal-store';
 
 @Component({
   selector: 'app-songs-list',
@@ -30,9 +33,24 @@ import { RouterModule } from '@angular/router';
 })
 export class SongsListComponent implements OnInit {
   songStore = inject(SongsStore);
+  populateStore = inject(PopulateStore);
   headerStore = inject(HeaderStore);
 
   tooltip = signal<string>('');
+
+  populatedSongs = computed(() => {
+    const songs = this.populateStore.songs();
+    const artists = this.populateStore.artists();
+
+    if (songs.length === 0 || artists.length === 0) return [];
+
+    const populatedSongs = songs.map((song) => ({
+      ...song,
+      _artist: artists.find((artist) => Number(artist.id) === song.artist),
+    }));
+
+    return populatedSongs;
+  });
 
   ngOnInit(): void {
     const songsTitle = $localize`Canciones`;
