@@ -1,8 +1,8 @@
-import { Component, inject, input } from '@angular/core';
-import { Song } from 'data-access-song';
+import { Component, computed, inject, input } from '@angular/core';
 import { HeaderStore } from 'shared/ui';
 import { SongFormComponent } from 'src/app/song/ui-song/components/song-form/song-form.component';
 import { SongsStore } from '../songs-list/songs-list.signal-store';
+import { PopulateStore, Song } from 'shared/data-access';
 
 @Component({
   selector: 'app-add-song',
@@ -12,9 +12,36 @@ import { SongsStore } from '../songs-list/songs-list.signal-store';
 })
 export class EditSongComponent {
   songsStore = inject(SongsStore);
+  populateStore = inject(PopulateStore);
   headerStore = inject(HeaderStore);
 
   songId = input<string>();
+
+  populatedSongDetail = computed(() => {
+    const song = this.songsStore.songDetail();
+    const artists = this.populateStore.artists();
+    const companies = this.populateStore.companies();
+
+    if (!song || artists.length === 0 || companies.length === 0) {
+      return null;
+    }
+
+    const artist = artists.find((a) => Number(a.id) === song.artist);
+    const company = companies.find((c) => c.songs.includes(Number(song.id)));
+
+    const companyCountries = companies.map((c) => c.country);
+    console.log('Company Countries:', companyCountries);
+
+    const populatedSong: Song = {
+      ...song,
+      _artist: artist,
+      _company: company,
+    };
+
+    console.log('Populated Song:', populatedSong);
+
+    return populatedSong;
+  });
 
   ngOnInit(): void {
     const title = $localize`Editar canción`;
