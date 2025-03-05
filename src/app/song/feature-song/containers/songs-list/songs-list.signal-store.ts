@@ -44,10 +44,25 @@ export const SongsStore = signalStore(
           filter((songId): songId is string => !!songId),
           tap(() => patchState(store, { isLoading: true })),
           switchMap((songId) =>
-            songService.getSong(songId).pipe(
+            songService.getSongDetail(songId).pipe(
               tapResponse({
                 next: (song) =>
                   patchState(store, { songDetail: song, isLoading: false }),
+                error: (error) => patchState(store, { isLoading: false }),
+              })
+            )
+          )
+        )
+      ),
+      addSong: rxMethod<Song>(
+        pipe(
+          tap(() => patchState(store, { isLoading: true })),
+          switchMap((song) =>
+            songService.addSong(song).pipe(
+              tapResponse({
+                next: () => {
+                  router.navigate(['/']);
+                },
                 error: (error) => patchState(store, { isLoading: false }),
               })
             )
