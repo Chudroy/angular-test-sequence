@@ -19,12 +19,6 @@ export class PopulateService {
       songs: this.#http.get<Song[]>(this.#SONGS_URL),
       artists: this.#http.get<Artist[]>(this.#ARTISTS_URL),
       companies: this.#http.get<Company[]>(this.#COMPANIES_URL),
-    }).pipe(
-      tap(({ songs, artists, companies }) => {
-        // console.log('songs', songs);
-        // console.log('artists', artists);
-        // console.log('companies', companies);
-      })
-    );
+    });
   }
 }
