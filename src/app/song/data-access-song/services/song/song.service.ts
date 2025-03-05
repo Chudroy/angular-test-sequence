@@ -10,15 +10,16 @@ import { API_URL } from 'util-environment';
 export class SongService {
   #http = inject(HttpClient);
   readonly #API_URL = inject(API_URL);
-
   readonly #SONGS_URL = this.#API_URL + '/songs';
+
+  readonly #GET_SONGS_URL = this.#API_URL + '/songs?_sort=-rating';
   readonly #SONG_DETAIL_URL = (songId: string) =>
     `${this.#API_URL}/songs/${songId}`;
   readonly DELETE_SONG_URL = (songId: string) =>
     `${this.#API_URL}/songs/${songId}`;
 
   getSongs(): Observable<Song[]> {
-    return this.#http.get<Song[]>(this.#SONGS_URL).pipe(
+    return this.#http.get<Song[]>(this.#GET_SONGS_URL).pipe(
       catchError((error) => {
         console.error(error);
         return throwError(() => error);
@@ -26,8 +27,17 @@ export class SongService {
     );
   }
 
-  getSong(songId: string) {
+  getSongDetail(songId: string) {
     return this.#http.get<Song>(this.#SONG_DETAIL_URL(songId)).pipe(
+      catchError((error) => {
+        console.error(error);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  addSong(song: Song) {
+    return this.#http.post<Song>(this.#SONGS_URL, song).pipe(
       catchError((error) => {
         console.error(error);
         return throwError(() => error);
