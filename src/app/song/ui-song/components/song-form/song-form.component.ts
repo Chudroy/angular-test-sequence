@@ -16,7 +16,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { Song } from 'data-access-song';
+import { Song } from 'shared/data-access';
 
 @Component({
   selector: 'app-song-form',
@@ -50,21 +50,23 @@ export class SongFormComponent {
 
     this.songForm.patchValue({
       title: song.title,
-      artist: song.artist?.name,
-      country: song.country,
+      artist: song._artist?.name,
+      country: song._company ? song._company.country : null,
       year: song.year.toString(),
       rating: song.rating,
       genres: song.genre,
-      companies: song.company ? [song.company] : [],
+      companies: song._company ? [song._company.name] : [],
     });
   });
 
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+
   readonly countries: string[] = [
-    'España',
-    'México',
-    'Estados Unidos',
-    'Argentina',
+    'Colombia',
+    'England',
+    'Greece',
+    'Philippines',
+    'China',
   ];
 
   songForm = this.fb.group({

@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { tapResponse } from '@ngrx/operators';
 import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
-import { Song } from 'data-access-song';
 import { filter, pipe, switchMap, tap } from 'rxjs';
+import { Song } from 'shared/data-access';
 import { SongService } from 'src/app/song/data-access-song/services/song/song.service';
 
 interface SongState {
@@ -30,7 +30,9 @@ export const SongsStore = signalStore(
           switchMap(() =>
             songService.getSongs().pipe(
               tapResponse({
-                next: (songs) => patchState(store, { songs, isLoading: false }),
+                next: (songs) => {
+                  patchState(store, { songs, isLoading: false });
+                },
                 error: (error) => patchState(store, { isLoading: false }),
               })
             )

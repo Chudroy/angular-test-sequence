@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { Song } from 'data-access-song';
+import { Song } from 'shared/data-access';
 import { HeaderStore } from 'shared/ui';
 import { SongFormComponent } from 'src/app/song/ui-song/components/song-form/song-form.component';
 
