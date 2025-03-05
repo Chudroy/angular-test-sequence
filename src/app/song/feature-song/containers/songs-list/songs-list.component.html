@@ -5,7 +5,12 @@
     <mat-card-title>{{ song.title }} ({{ song._artist?.name }})</mat-card-title>
   </mat-card-header>
 
-  <img mat-card-image src="dummy_600x400_ffffff_cccccc.png" alt="" />
+  <img
+    mat-card-image
+    class="songs-list__card-image"
+    [src]="song.poster"
+    alt=""
+  />
 
   <mat-card-content>
     @for (genre of song.genre; track $index) {
@@ -13,6 +18,8 @@
     }
   </mat-card-content>
 </mat-card>
+} @empty {
+<app-skeleton class="songs-list__skeleton" [skeletons]="5"></app-skeleton>
 }
 
 <button

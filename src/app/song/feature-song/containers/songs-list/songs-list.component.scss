@@ -1,11 +1,39 @@
 .songs-list__card {
   margin: 2rem auto 2rem;
   width: 90%;
+  max-width: 40rem;
   cursor: pointer;
+}
+
+.songs-list__card-image {
+  max-height: 30rem;
+  object-fit: cover;
+  display: block;
 }
 
 .songs-list__add-song-button {
   position: fixed;
   right: 3rem;
   bottom: 3rem;
+}
+
+:host {
+  ::ng-deep app-skeleton {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .skeleton__card {
+      margin: 2rem auto 1rem;
+      width: 90%;
+      max-width: 40rem;
+    }
+
+    .skeleton__card-image {
+      max-height: 30rem;
+      object-fit: cover;
+      display: block;
+    }
+  }
 }

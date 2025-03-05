@@ -1,4 +1,3 @@
-import { JsonPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -14,7 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule } from '@angular/router';
 import { PopulateStore } from 'shared/data-access';
-import { HeaderStore } from 'shared/ui';
+import { HeaderStore, SkeletonComponent } from 'shared/ui';
 import { SongsStore } from './songs-list.signal-store';
 
 @Component({
@@ -26,6 +25,7 @@ import { SongsStore } from './songs-list.signal-store';
     MatTooltipModule,
     MatIconModule,
     RouterModule,
+    SkeletonComponent
   ],
   templateUrl: './songs-list.component.html',
   styleUrl: './songs-list.component.scss',
@@ -39,7 +39,7 @@ export class SongsListComponent implements OnInit {
   tooltip = signal<string>('');
 
   populatedSongs = computed(() => {
-    const songs = this.populateStore.songs();
+    const songs = this.songStore.songs();
     const artists = this.populateStore.artists();
 
     if (songs.length === 0 || artists.length === 0) return [];
@@ -54,7 +54,10 @@ export class SongsListComponent implements OnInit {
 
   ngOnInit(): void {
     const songsTitle = $localize`Canciones`;
-    this.headerStore.setTitle(songsTitle);
+    this.headerStore.setHeader({
+      title: songsTitle,
+      goBack: false,
+    });
 
     const tooltip = $localize`Añadir canción`;
     this.tooltip.set(tooltip);
