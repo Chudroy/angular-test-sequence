@@ -10,7 +10,7 @@ import { SongsStore } from '../songs-list/songs-list.signal-store';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
-import { HeaderStore } from 'shared/ui';
+import { HeaderStore, SkeletonComponent } from 'shared/ui';
 import { RouterModule } from '@angular/router';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
@@ -25,6 +25,7 @@ import { PopulateStore, Song } from 'shared/data-access';
     RouterModule,
     MatTooltipModule,
     MatButtonModule,
+    SkeletonComponent
   ],
   templateUrl: './song-detail.component.html',
   styleUrl: './song-detail.component.scss',
@@ -69,7 +70,10 @@ export class SongDetailComponent {
     const songDetail = this.songsStore.songDetail();
 
     if (songDetail) {
-      this.headerStore.setTitle(songDetail.title);
+      this.headerStore.setHeader({
+        title: songDetail.title,
+        goBack: true,
+      });
     }
   });
 

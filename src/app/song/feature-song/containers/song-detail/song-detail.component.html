@@ -1,12 +1,16 @@
-@let song = populatedSongDetail();
-
+@let song = populatedSongDetail(); @if(song){
 <mat-card class="song-detail__card">
   <mat-card-header>
     <mat-card-title
       >{{ song?.title }} ({{ song?._artist?.name }})</mat-card-title
     >
   </mat-card-header>
-  <img mat-card-image src="dummy_600x400_ffffff_cccccc.png" alt="Song poster" />
+  <img
+    mat-card-image
+    class="song-detail__card-image"
+    [src]="song?.poster"
+    alt="Song poster"
+  />
   <mat-card-content>
     <p i18n>Género</p>
     @for (tag of song?.genre; track $index) {
@@ -44,3 +48,6 @@
     <mat-icon>delete</mat-icon>
   </button>
 </div>
+} @else {
+<app-skeleton [skeletons]="1"></app-skeleton>
+}
