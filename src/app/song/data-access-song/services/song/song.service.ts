@@ -13,8 +13,13 @@ export class SongService {
   readonly #SONGS_URL = this.#API_URL + '/songs';
 
   readonly #GET_SONGS_URL = this.#API_URL + '/songs?_sort=-rating';
+
   readonly #SONG_DETAIL_URL = (songId: string) =>
     `${this.#API_URL}/songs/${songId}`;
+
+  readonly #EDIT_SONG_URL = (songId: string) =>
+    `${this.#API_URL}/songs/${songId}`;
+
   readonly DELETE_SONG_URL = (songId: string) =>
     `${this.#API_URL}/songs/${songId}`;
 
@@ -38,6 +43,15 @@ export class SongService {
 
   addSong(song: Song) {
     return this.#http.post<Song>(this.#SONGS_URL, song).pipe(
+      catchError((error) => {
+        console.error(error);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  editSong(song: Song) {
+    return this.#http.patch<Song>(this.#EDIT_SONG_URL(song.id), song).pipe(
       catchError((error) => {
         console.error(error);
         return throwError(() => error);
