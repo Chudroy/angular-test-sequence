@@ -49,7 +49,9 @@ export class SongsListComponent implements OnInit {
 
     const populatedSongs = songs.map((song) => ({
       ...song,
-      _artist: artists.find((artist) => Number(artist.id) === song.artist),
+      _artist: artists.find(
+        (artist) => Number(artist.id) === Number(song.artist)
+      ),
     }));
 
     return populatedSongs;

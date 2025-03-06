@@ -102,13 +102,13 @@ describe('SongsListComponent', () => {
         year: 2022,
         duration: 210,
         rating: 4.5,
-        artist: 2,
+        artist: '2',
       },
     ];
 
     const artistData: Artist[] = [
       {
-        id: 2,
+        id: '2',
         name: 'Artist Name',
         bornCity: 'Test City',
         birthdate: '2000-01-01',
@@ -138,7 +138,7 @@ describe('SongsListComponent', () => {
           year: 2022,
           duration: 210,
           rating: 4.5,
-          artist: 2,
+          artist: '2',
           _artist: artistData[0],
         },
       ]);
