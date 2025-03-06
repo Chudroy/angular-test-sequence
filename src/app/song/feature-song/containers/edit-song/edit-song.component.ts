@@ -40,7 +40,7 @@ export class EditSongComponent {
   });
 
   showLoadingDialog = effect(() => {
-    if (this.songsStore.isLoading()) {
+    if (!this.songsStore.songDetail() && this.songsStore.isLoading()) {
       this.progressService.openDialog();
     } else {
       this.progressService.closeDialog();
