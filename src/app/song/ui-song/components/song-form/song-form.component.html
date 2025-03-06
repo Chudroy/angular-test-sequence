@@ -45,11 +45,11 @@
   <mat-form-field appearance="outline">
     <mat-label>{{ "song-form.genre" | translate }}</mat-label>
     <mat-chip-grid
-      [formControl]="getControl('genres')"
+      [formControl]="getControl('genre')"
       #genreChipGrid
       aria-label="Enter genres"
     >
-      @for (genre of songForm.value.genres; track genre) {
+      @for (genre of songForm.value.genre; track genre) {
       <mat-chip-row [removable]="true" (removed)="removeGenre(genre)">
         {{ genre }}
         <button matChipRemove>
@@ -73,46 +73,13 @@
 
   <mat-form-field appearance="outline">
     <mat-label>{{ "song-form.recordLabel" | translate }}</mat-label>
-    <mat-chip-grid
-      [formControl]="getControl('companies')"
-      #companyChipGrid
-      aria-label="Enter companies"
-    >
-      @for (company of songForm.value.companies; track company) {
-      <mat-chip-row [removable]="true" (removed)="removeCompany(company)">
-        {{ company }}
-        <button matChipRemove>
-          <mat-icon>cancel</mat-icon>
-        </button>
-      </mat-chip-row>
-      }
-    </mat-chip-grid>
-    <input
-      placeholder="{{ 'song-form.placeholder.company' | translate }}"
-      [matChipInputFor]="companyChipGrid"
-      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-      [matChipInputAddOnBlur]="true"
-      (matChipInputTokenEnd)="addCompany($event)"
-    />
-    @if (songForm.get('companies')?.hasError('required') &&
-    (songForm.get('companies')?.touched || songForm.get('companies')?.dirty)) {
-    <mat-error>{{ "song-form.error.companyRequired" | translate }}</mat-error>
-    }
-  </mat-form-field>
-
-  <mat-form-field appearance="outline">
-    <mat-label>{{ "song-form.country" | translate }}</mat-label>
-    <mat-select formControlName="country">
-      @for (c of countries; track $index) {
-      <mat-option [value]="c">
-        {{ c }}
+    <mat-select formControlName="companies" multiple>
+      @for (company of companyIdMap(); track company) {
+      <mat-option [value]="company.id">
+        {{ company.name }}
       </mat-option>
       }
     </mat-select>
-    @if (songForm.get('country')?.hasError('required') &&
-    (songForm.get('country')?.touched || songForm.get('country')?.dirty)) {
-    <mat-error>{{ "song-form.error.countryRequired" | translate }}</mat-error>
-    }
   </mat-form-field>
 
   <mat-form-field appearance="outline">

@@ -1,7 +1,7 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { AsyncPipe } from '@angular/common';
 import {
   Component,
-  computed,
   effect,
   inject,
   input,
@@ -16,6 +16,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { provideLuxonDateAdapter } from '@angular/material-luxon-adapter';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
 import { MatOptionModule } from '@angular/material/core';
@@ -25,10 +26,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { TranslatePipe } from '@ngx-translate/core';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { Song } from 'shared/data-access';
 import { filter, map, Observable, startWith } from 'rxjs';
-import { AsyncPipe } from '@angular/common';
+import { Song } from 'shared/data-access';
+import { SongFormValue } from 'src/app/song/data-access-song/models/song.models';
 import { artistIdValidator } from 'util-song';
 
 @Component({
@@ -64,9 +64,16 @@ export class SongFormComponent implements OnInit {
     }[]
   >();
 
+  companyIdMap = input.required<
+    {
+      id: string;
+      name: string;
+    }[]
+  >();
+
   filteredArtists!: Observable<{ id: string; name: string }[] | undefined>;
 
-  songFormSubmitted = output<Song>();
+  songFormSubmitted = output<SongFormValue>();
 
   populateSongForm = effect(() => {
     const song = this.song();
@@ -75,15 +82,15 @@ export class SongFormComponent implements OnInit {
       this.songForm.patchValue({
         title: song.title,
         artist: song._artist?.id || song.artist,
-        country: song._company ? song._company.country : null,
         year: song.year.toString(),
         rating: song.rating,
-        genres: song.genre,
-        companies: song._company ? [song._company.name] : [],
-      });
+        genre: song.genre,
+        companies: song._companies?.map((c) => {
+          console.log(c);
 
-      this.songForm.get('country')?.disable();
-      this.songForm.get('companies')?.disable();
+          return c.id.toString();
+        }),
+      });
     }
   });
 
@@ -103,15 +110,14 @@ export class SongFormComponent implements OnInit {
       Validators.required,
       artistIdValidator,
     ]),
-    country: new FormControl<string | null>(null, Validators.required),
     year: new FormControl<string | null>(null, [Validators.required]),
     rating: new FormControl<number | null>(null, [
       Validators.required,
       Validators.min(1),
       Validators.max(10),
     ]),
-    genres: new FormControl<string[]>([], Validators.required),
-    companies: new FormControl<string[]>([], Validators.required),
+    genre: new FormControl<string[]>([], Validators.required),
+    companies: new FormControl<string[]>([]),
   });
 
   ngOnInit() {
@@ -148,18 +154,18 @@ export class SongFormComponent implements OnInit {
   addGenre(event: MatChipInputEvent): void {
     const inputValue = (event.value || '').trim();
     if (inputValue) {
-      const currentGenres = this.songForm.value.genres;
+      const currentGenres = this.songForm.value.genre;
       this.songForm.patchValue({
-        genres: [...(currentGenres || []), inputValue],
+        genre: [...(currentGenres || []), inputValue],
       });
     }
     event.chipInput?.clear();
   }
 
   removeGenre(genre: string): void {
-    const currentGenres = this.songForm.value.genres;
+    const currentGenres = this.songForm.value.genre;
     const updatedGenres = currentGenres?.filter((g: string) => g !== genre);
-    this.songForm.patchValue({ genres: updatedGenres });
+    this.songForm.patchValue({ genre: updatedGenres });
   }
 
   addCompany(event: MatChipInputEvent): void {
@@ -183,7 +189,9 @@ export class SongFormComponent implements OnInit {
 
   onSubmit(): void {
     if (this.songForm.valid) {
-      this.songFormSubmitted.emit(this.songForm.value as unknown as Song);
+      this.songFormSubmitted.emit(
+        this.songForm.value as unknown as SongFormValue
+      );
     }
   }
 
