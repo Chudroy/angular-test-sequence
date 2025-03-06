@@ -14,16 +14,18 @@
     alt="Song poster"
   />
   <mat-card-content>
-    <p >Género</p>
+    <p>Género</p>
     @for (tag of song?.genre; track $index) {
     <mat-chip>{{ tag }}</mat-chip>
     }
     <div class="details">
-      <p >Compañía discográfica:</p>
-      @if(song?._company?.name) {
-      <mat-chip>{{ song?._company?.name }}</mat-chip>
-      } @else { -- }
-      <p><strong>País:</strong> {{ song?._company?.country || "--" }}</p>
+      <p>Compañías discográficas:</p>
+
+      @for(company of song?._companies; track company.id){
+      <mat-chip>{{ company?.name }}</mat-chip>
+      } @empty { -- }
+
+      <p><strong>País:</strong> {{ song?._companies?.[0]?.country || "--" }}</p>
       <p><strong>Año:</strong> {{ song?.year }}</p>
     </div>
   </mat-card-content>
