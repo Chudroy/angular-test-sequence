@@ -15,6 +15,7 @@ import { RouterModule } from '@angular/router';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
 import { PopulateStore, Song } from 'shared/data-access';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-song-detail',
@@ -26,6 +27,7 @@ import { PopulateStore, Song } from 'shared/data-access';
     MatTooltipModule,
     MatButtonModule,
     SkeletonComponent,
+    DatePipe,
   ],
   templateUrl: './song-detail.component.html',
   styleUrl: './song-detail.component.scss',

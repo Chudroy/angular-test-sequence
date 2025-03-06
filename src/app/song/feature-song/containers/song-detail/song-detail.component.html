@@ -26,7 +26,7 @@
       } @empty { -- }
 
       <p><strong>País:</strong> {{ song?._companies?.[0]?.country || "--" }}</p>
-      <p><strong>Año:</strong> {{ song?.year }}</p>
+      <p><strong>Año:</strong> {{ song?.year | date : "YYYY" }}</p>
     </div>
   </mat-card-content>
 </mat-card>
