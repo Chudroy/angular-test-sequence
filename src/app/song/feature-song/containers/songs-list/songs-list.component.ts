@@ -15,6 +15,8 @@ import { RouterModule } from '@angular/router';
 import { PopulateStore } from 'shared/data-access';
 import { HeaderStore, SkeletonComponent } from 'shared/ui';
 import { SongsStore } from './songs-list.signal-store';
+import { TranslateService } from '@ngx-translate/core';
+import { firstValueFrom, take, tap } from 'rxjs';
 
 @Component({
   selector: 'app-songs-list',
@@ -25,7 +27,7 @@ import { SongsStore } from './songs-list.signal-store';
     MatTooltipModule,
     MatIconModule,
     RouterModule,
-    SkeletonComponent
+    SkeletonComponent,
   ],
   templateUrl: './songs-list.component.html',
   styleUrl: './songs-list.component.scss',
@@ -35,6 +37,7 @@ export class SongsListComponent implements OnInit {
   songStore = inject(SongsStore);
   populateStore = inject(PopulateStore);
   headerStore = inject(HeaderStore);
+  translateService = inject(TranslateService);
 
   tooltip = signal<string>('');
 
@@ -52,12 +55,27 @@ export class SongsListComponent implements OnInit {
     return populatedSongs;
   });
 
-  ngOnInit(): void {
-    const songsTitle = `Canciones`;
+  async ngOnInit() {
+    const title = await firstValueFrom(
+      this.translateService.get('general.Songs')
+    );
+
     this.headerStore.setHeader({
-      title: songsTitle,
+      title,
       goBack: false,
     });
+
+    this.translateService.onLangChange
+      .pipe(
+        tap((event) => {
+          const title = event.translations['general']?.['Songs'];
+          this.headerStore.setHeader({
+            title,
+            goBack: false,
+          });
+        })
+      )
+      .subscribe();
 
     const tooltip = `Añadir canción`;
     this.tooltip.set(tooltip);

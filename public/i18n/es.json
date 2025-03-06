@@ -1,4 +1,7 @@
 {
+  "general": {
+    "Songs": "Canciones"
+  },
   "language-selector": {
     "language": "Idioma"
   },
