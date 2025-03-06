@@ -37,8 +37,8 @@ export class SongDetailComponent {
   headerStore = inject(HeaderStore);
   populateStore = inject(PopulateStore);
 
-  deleteTooltip = signal(`Borrar canción`);
-  editTooltip = signal(`Editar canción`);
+  deleteTooltip = signal('Borrar canción');
+  editTooltip = signal('Editar canción');
 
   songId = input<string>();
 
@@ -52,22 +52,20 @@ export class SongDetailComponent {
     }
 
     const artist = artists.find((a) => Number(a.id) === Number(song.artist));
+
     const matchingCompanies = companies.filter((c) =>
       c.songs.includes(Number(song.id))
     );
 
-    const populatedSong: Song = {
+    return {
       ...song,
       _artist: artist,
       _companies: matchingCompanies,
-    };
-
-    return populatedSong;
+    } as Song;
   });
 
   setHeader = effect(() => {
     const songDetail = this.songsStore.songDetail();
-
     this.headerStore.setGoBack(true);
 
     if (songDetail) {
@@ -76,12 +74,12 @@ export class SongDetailComponent {
   });
 
   getSongDetail = effect(() => {
-    const songId = this.songId();
-    this.songsStore.getSongDetail(songId);
+    const currentSongId = this.songId();
+    this.songsStore.getSongDetail(currentSongId);
   });
 
-  onDelete() {
-    const songId = this.songId();
-    this.songsStore.deleteSong(songId);
+  onDelete(): void {
+    const currentSongId = this.songId();
+    this.songsStore.deleteSong(currentSongId);
   }
 }
