@@ -1,8 +1,8 @@
-import { Component, computed, inject, input } from '@angular/core';
-import { HeaderStore } from 'shared/ui';
+import { Component, computed, effect, inject, input } from '@angular/core';
+import { PopulateStore, Song } from 'shared/data-access';
+import { HeaderStore, ProgressService } from 'shared/ui';
 import { SongFormComponent } from 'src/app/song/ui-song/components/song-form/song-form.component';
 import { SongsStore } from '../songs-list/songs-list.signal-store';
-import { PopulateStore, Song } from 'shared/data-access';
 
 @Component({
   selector: 'app-add-song',
@@ -14,6 +14,7 @@ export class EditSongComponent {
   songsStore = inject(SongsStore);
   populateStore = inject(PopulateStore);
   headerStore = inject(HeaderStore);
+  progressService = inject(ProgressService);
 
   songId = input<string>();
 
@@ -36,6 +37,14 @@ export class EditSongComponent {
     };
 
     return populatedSong;
+  });
+
+  showLoadingDialog = effect(() => {
+    if (this.songsStore.isLoading()) {
+      this.progressService.openDialog();
+    } else {
+      this.progressService.closeDialog();
+    }
   });
 
   ngOnInit(): void {
