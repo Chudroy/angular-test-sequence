@@ -58,30 +58,36 @@ export class SongsListComponent implements OnInit {
   });
 
   async ngOnInit() {
+    await this.initializeHeader();
+    this.subscribeToLanguageChanges();
+    this.initializeTooltip();
+    this.loadSongs();
+  }
+
+  private async initializeHeader(): Promise<void> {
     const title = await firstValueFrom(
       this.translateService.get('general.Songs')
     );
+    this.headerStore.setHeader({ title, goBack: false });
+  }
 
-    this.headerStore.setHeader({
-      title,
-      goBack: false,
-    });
-
+  private subscribeToLanguageChanges(): void {
     this.translateService.onLangChange
       .pipe(
         tap((event) => {
           const title = event.translations['general']?.['Songs'];
-          this.headerStore.setHeader({
-            title,
-            goBack: false,
-          });
+          this.headerStore.setHeader({ title, goBack: false });
         })
       )
       .subscribe();
+  }
 
-    const tooltip = `Añadir canción`;
-    this.tooltip.set(tooltip);
+  private initializeTooltip(): void {
+    const tooltipText = `Añadir canción`;
+    this.tooltip.set(tooltipText);
+  }
 
+  private loadSongs(): void {
     this.songStore.getSongs();
   }
 }
