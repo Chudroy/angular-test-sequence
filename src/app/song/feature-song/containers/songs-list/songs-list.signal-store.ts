@@ -1,14 +1,14 @@
 import { inject } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { tapResponse } from '@ngrx/operators';
 import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { filter, pipe, switchMap, tap } from 'rxjs';
 import { Song } from 'shared/data-access';
-import { ProgressService } from 'src/app/shared/ui-common';
-import { SongService } from 'src/app/song/data-access-song/services/song/song.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { ProgressService } from 'shared/ui';
 import { SongFormValue } from 'src/app/song/data-access-song/models/song.models';
+import { SongService } from 'src/app/song/data-access-song/services/song/song.service';
 
 interface SongState {
   songDetail: Song | null;

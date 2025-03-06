@@ -7,10 +7,10 @@ import {
   OnInit,
 } from '@angular/core';
 import { PopulateStore, Song } from 'shared/data-access';
-import { HeaderStore, ProgressService } from 'src/app/shared/ui-common';
+import { HeaderStore, ProgressService } from 'shared/ui';
+import { SongFormValue } from 'src/app/song/data-access-song/models/song.models';
 import { SongFormComponent } from 'src/app/song/ui-song/components/song-form/song-form.component';
 import { SongsStore } from '../songs-list/songs-list.signal-store';
-import { SongFormValue } from 'src/app/song/data-access-song/models/song.models';
 
 @Component({
   selector: 'app-add-song',
