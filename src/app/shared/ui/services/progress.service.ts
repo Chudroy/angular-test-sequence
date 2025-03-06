@@ -13,10 +13,14 @@ export class ProgressService {
     this.dialogRef = this.dialog.open(ProgressDialogComponent, {
       minWidth: '150px',
       height: '150px',
+      disableClose: true,
     });
   }
 
   closeDialog() {
+    if (!this.dialogRef) {
+      throw Error("Dialog hasn't been opened");
+    }
     this.dialogRef.close();
   }
 }
