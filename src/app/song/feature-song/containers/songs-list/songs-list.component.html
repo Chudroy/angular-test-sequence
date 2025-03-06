@@ -1,26 +1,38 @@
-@let songs = populatedSongs(); @for(song of songs; track song.id){
+@let songs = populatedSongs();
 
-<mat-card appearance="raised" class="songs-list__card" [routerLink]="[song.id]">
-  <mat-card-header>
-    <mat-card-title>{{ song.title }} ({{ song._artist?.name }})</mat-card-title>
-  </mat-card-header>
+<div class="songs-list__flex-container">
+  @for(song of songs; track song.id){
 
-  <img
-    mat-card-image
-    class="songs-list__card-image"
-    [src]="song.poster"
-    alt=""
-  />
+  <mat-card
+    appearance="raised"
+    class="songs-list__card"
+    [routerLink]="[song.id]"
+  >
+    <mat-card-header>
+      <mat-card-title
+        >{{ song.title }} ({{ song._artist?.name }})</mat-card-title
+      >
+    </mat-card-header>
 
-  <mat-card-content>
-    @for (genre of song.genre; track $index) {
-    <mat-chip>{{ genre }}</mat-chip>
-    }
-  </mat-card-content>
-</mat-card>
-} @empty {
-<app-skeleton class="songs-list__skeleton" [skeletons]="5"></app-skeleton>
-}
+    <img
+      width="512"
+      height="320"
+      mat-card-image
+      class="songs-list__card-image"
+      [src]="song.poster"
+      alt=""
+    />
+
+    <mat-card-content>
+      @for (genre of song.genre; track $index) {
+      <mat-chip>{{ genre }}</mat-chip>
+      }
+    </mat-card-content>
+  </mat-card>
+  } @empty {
+  <app-skeleton class="songs-list__skeleton" [skeletons]="6"></app-skeleton>
+  }
+</div>
 
 <button
   mat-fab

@@ -1,48 +1,58 @@
-.songs-list__card {
-  margin: 2rem auto 2rem;
-  width: 90%;
-  max-width: 40rem;
-  cursor: pointer;
-}
-
-.songs-list__card-image {
-  max-height: 30rem;
-  object-fit: cover;
-  display: block;
-}
-
-.songs-list__add-song-button {
-  position: fixed;
-  right: 3rem;
-  bottom: 3rem;
-}
-
 :host {
-  ::ng-deep app-skeleton {
+  --card-height: 28rem;
+
+  %card-base {
+    margin: 1rem 1rem 0;
+    width: 90%;
+    max-width: 32rem;
+    height: var(--card-height);
+  }
+
+  %card-image-base {
+    object-fit: cover;
+    max-height: 20rem;
+    max-width: 100%;
+  }
+
+  .songs-list__card {
+    @extend %card-base;
+    cursor: pointer;
+  }
+
+  .songs-list__card-image {
+    @extend %card-image-base;
+  }
+
+  .songs-list__flex-container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+  }
+
+  .songs-list__add-song-button {
+    position: fixed;
+    right: 3rem;
+    bottom: 3rem;
+  }
+
+  ::ng-deep app-skeleton {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
     justify-content: center;
 
     .skeleton__card {
-      height: 572px;
-      width: 360px;
-      margin: 2rem auto 0;
-      width: 90%;
-      max-width: 40rem;
-      overflow: hidden;
+      @extend %card-base;
+      margin-bottom: 0;
     }
 
     .skeleton__card-image {
-      max-height: 30rem;
-      object-fit: cover;
-      display: block;
+      @extend %card-image-base;
       width: 100%;
       height: 480px;
-      background-color: #ddd;
       position: relative;
-      overflow: hidden;
-      object-fit: cover;
     }
   }
 }
