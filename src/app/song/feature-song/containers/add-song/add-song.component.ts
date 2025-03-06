@@ -17,6 +17,10 @@ export class AddSongComponent {
   populateStore = inject(PopulateStore);
 
   ngOnInit(): void {
+    this.initializeHeader();
+  }
+
+  initializeHeader() {
     const title = `Añadir canción`;
     this.headerStore.setHeader({
       title,
