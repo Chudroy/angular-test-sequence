@@ -3,10 +3,18 @@ import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { RouterModule } from '@angular/router';
 import { SidenavStore } from './side-nav.signal-store';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-side-nav',
-  imports: [MatSidenavModule, MatListModule, RouterModule],
+  imports: [
+    MatSidenavModule,
+    MatListModule,
+    RouterModule,
+    MatIconModule,
+    MatButtonModule,
+  ],
   templateUrl: './side-nav.component.html',
   styleUrl: './side-nav.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
