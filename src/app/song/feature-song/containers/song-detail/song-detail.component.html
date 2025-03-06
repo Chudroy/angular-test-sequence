@@ -31,11 +31,11 @@
   </mat-card-content>
 </mat-card>
 
-<div class="song-detail__floating-buttons">
+<div class="song-detail__floating-buttons-row">
   <button
     mat-fab
     color="primary"
-    class="songs-list__add-song-button"
+    class="song-detail__song-button"
     [matTooltip]="editTooltip()"
     [routerLink]="['edit']"
   >
@@ -45,7 +45,7 @@
   <button
     mat-fab
     color="primary"
-    class="songs-list__add-song-button"
+    class="song-detail__song-button"
     [matTooltip]="deleteTooltip()"
     (click)="onDelete()"
   >

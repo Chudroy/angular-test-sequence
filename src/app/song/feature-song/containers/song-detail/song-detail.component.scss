@@ -41,11 +41,15 @@
     }
   }
 
-  .song-detail__floating-buttons {
+  .song-detail__floating-buttons-row {
     position: fixed;
     right: 3rem;
     bottom: 3rem;
     display: flex;
-    gap: 1rem;
+    gap: 3rem;
+  }
+
+  .song-detail__song-button{
+    transform: scale(1.5);
   }
 }
