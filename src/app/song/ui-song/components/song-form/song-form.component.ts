@@ -19,7 +19,7 @@ import { provideLuxonDateAdapter } from '@angular/material-luxon-adapter';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
-import { MatOptionModule } from '@angular/material/core';
+import { MAT_DATE_FORMATS, MatOptionModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -30,6 +30,18 @@ import { filter, map, Observable, startWith } from 'rxjs';
 import { Song } from 'shared/data-access';
 import { SongFormValue } from 'src/app/song/data-access-song/models/song.models';
 import { artistIdValidator } from 'util-song';
+
+export const LUXON_DATE_FORMATS = {
+  parse: {
+    dateInput: 'MM/dd/yyyy',
+  },
+  display: {
+    dateInput: 'MM/dd/yyyy',
+    monthYearLabel: 'LLL yyyy',
+    dateA11yLabel: 'dd LLL yyyy',
+    monthYearA11yLabel: 'LLLL yyyy',
+  },
+};
 
 @Component({
   selector: 'app-song-form',
@@ -48,7 +60,10 @@ import { artistIdValidator } from 'util-song';
     MatAutocompleteModule,
     AsyncPipe,
   ],
-  providers: [provideLuxonDateAdapter()],
+  providers: [
+    provideLuxonDateAdapter(),
+    { provide: MAT_DATE_FORMATS, useValue: LUXON_DATE_FORMATS },
+  ],
   templateUrl: './song-form.component.html',
   styleUrl: './song-form.component.scss',
 })

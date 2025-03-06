@@ -65,8 +65,8 @@
       [matChipInputAddOnBlur]="true"
       (matChipInputTokenEnd)="addGenre($event)"
     />
-    @if (songForm.get('genres')?.hasError('required') &&
-    (songForm.get('genres')?.touched || songForm.get('genres')?.dirty)) {
+    @if (songForm.get('genre')?.hasError('required') &&
+    (songForm.get('genre')?.touched || songForm.get('genre')?.dirty)) {
     <mat-error>{{ "song-form.error.genreRequired" | translate }}</mat-error>
     }
   </mat-form-field>
