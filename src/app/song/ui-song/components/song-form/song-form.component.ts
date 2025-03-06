@@ -86,8 +86,6 @@ export class SongFormComponent implements OnInit {
         rating: song.rating,
         genre: song.genre,
         companies: song._companies?.map((c) => {
-          console.log(c);
-
           return c.id.toString();
         }),
       });
