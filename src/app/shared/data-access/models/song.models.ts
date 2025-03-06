@@ -9,7 +9,7 @@ export interface Song {
   year: number;
   duration: number;
   rating: number;
-  artist: number;
+  artist: string;
   _artist?: Artist;
   _company?: Company;
 }
