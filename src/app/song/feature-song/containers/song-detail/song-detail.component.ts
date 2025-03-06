@@ -64,11 +64,10 @@ export class SongDetailComponent {
   setHeader = effect(() => {
     const songDetail = this.songsStore.songDetail();
 
+    this.headerStore.setGoBack(true);
+
     if (songDetail) {
-      this.headerStore.setHeader({
-        title: songDetail.title,
-        goBack: true,
-      });
+      this.headerStore.setTitle(songDetail.title);
     }
   });
 

@@ -1,4 +1,4 @@
-@let song = populatedSongDetail(); @if(song){
+@let song = populatedSongDetail(); @if(song && !songsStore.isLoading()){
 <mat-card class="song-detail__card">
   <mat-card-header>
     <mat-card-title
