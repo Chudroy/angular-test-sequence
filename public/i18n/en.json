@@ -1,0 +1,34 @@
+{
+  "language-selector": {
+    "language": "Language"
+  },
+  "song-form": {
+    "title": "Title",
+    "artist": "Artist",
+    "genre": "Genre",
+    "recordLabel": "Record Label",
+    "country": "Country",
+    "year": "Year",
+    "rating": "Rating",
+    "save": "Save",
+    "placeholder": {
+      "title": "Enter the song title",
+      "artist": "Enter the artist",
+      "genre": "Add a genre",
+      "company": "Add a company",
+      "year": "Enter the year",
+      "rating": "Enter the rating"
+    },
+    "error": {
+      "titleRequired": "Title is required",
+      "artistRequired": "Artist is required",
+      "genreRequired": "At least one genre is required",
+      "companyRequired": "At least one company is required",
+      "countryRequired": "Country is required",
+      "yearRequired": "Year is required",
+      "ratingRequired": "Rating is required",
+      "ratingMin": "Minimum rating is 1",
+      "ratingMax": "Maximum rating is 10"
+    }
+  }
+}

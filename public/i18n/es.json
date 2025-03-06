@@ -1,0 +1,34 @@
+{
+  "language-selector": {
+    "language": "Idioma"
+  },
+  "song-form": {
+    "title": "Título",
+    "artist": "Artista",
+    "genre": "Género",
+    "recordLabel": "Compañía discográfica",
+    "country": "País",
+    "year": "Año",
+    "rating": "Puntuación",
+    "save": "Guardar",
+    "placeholder": {
+      "title": "Indique el título de la canción",
+      "artist": "Indique el artista",
+      "genre": "Añade un género",
+      "company": "Añade una compañía",
+      "year": "Indique el año",
+      "rating": "Indique la puntuación"
+    },
+    "error": {
+      "titleRequired": "El título es obligatorio",
+      "artistRequired": "El artista es obligatorio",
+      "genreRequired": "Al menos un género es requerido",
+      "companyRequired": "Al menos una compañía es requerida",
+      "countryRequired": "El país es obligatorio",
+      "yearRequired": "El año es obligatorio",
+      "ratingRequired": "La puntuación es obligatoria",
+      "ratingMin": "La puntuación mínima es 1",
+      "ratingMax": "La puntuación máxima es 10"
+    }
+  }
+}
