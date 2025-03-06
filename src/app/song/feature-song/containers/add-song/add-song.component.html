@@ -1,1 +1,4 @@
-<app-song-form (songFormSubmitted)="onSubmit($event)"></app-song-form>
+<app-song-form
+  [artistIdMap]="populateStore.artistIdMap()"
+  (songFormSubmitted)="onSubmit($event)"
+></app-song-form>

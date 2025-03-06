@@ -16,12 +16,29 @@
     <mat-label>{{ "song-form.artist" | translate }}</mat-label>
     <input
       matInput
-      formControlName="artist"
+      [formControl]="getControl('artist')"
+      [matAutocomplete]="artistAuto"
       placeholder="{{ 'song-form.placeholder.artist' | translate }}"
     />
-    @if (songForm.get('artist')?.hasError('required') &&
-    (songForm.get('artist')?.touched || songForm.get('artist')?.dirty)) {
-    <mat-error>{{ "song-form.error.artistRequired" | translate }}</mat-error>
+    <mat-autocomplete
+      #artistAuto="matAutocomplete"
+      [displayWith]="displayArtist"
+    >
+      @for (artist of filteredArtists | async; track artist) {
+      <mat-option [value]="artist.id">
+        {{ artist.name }}
+      </mat-option>
+      }
+    </mat-autocomplete>
+    @if ( songForm.get('artist')?.hasError('required') &&
+    (songForm.get('artist')?.touched || songForm.get('artist')?.dirty) ) {
+    <mat-error>
+      {{ "song-form.error.artistRequired" | translate }}
+    </mat-error>
+    } @if (songForm.get('artist')?.hasError('invalidArtist')) {
+    <mat-error>
+      {{ "song-form.error.invalidArtist" | translate }}
+    </mat-error>
     }
   </mat-form-field>
 

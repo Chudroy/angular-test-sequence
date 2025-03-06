@@ -1,5 +1,13 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { Component, effect, inject, input, output } from '@angular/core';
+import {
+  Component,
+  computed,
+  effect,
+  inject,
+  input,
+  OnInit,
+  output,
+} from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -17,8 +25,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { TranslatePipe } from '@ngx-translate/core';
-
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { Song } from 'shared/data-access';
+import { filter, map, Observable, startWith } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
+import { artistIdValidator } from 'util-song';
+
 @Component({
   selector: 'app-song-form',
   imports: [
@@ -33,15 +45,26 @@ import { Song } from 'shared/data-access';
     MatButtonModule,
     MatSelectModule,
     TranslatePipe,
+    MatAutocompleteModule,
+    AsyncPipe,
   ],
   providers: [provideLuxonDateAdapter()],
   templateUrl: './song-form.component.html',
   styleUrl: './song-form.component.scss',
 })
-export class SongFormComponent {
+export class SongFormComponent implements OnInit {
   fb = inject(FormBuilder);
 
   song = input<Song>();
+
+  artistIdMap = input.required<
+    {
+      id: string;
+      name: string;
+    }[]
+  >();
+
+  filteredArtists!: Observable<{ id: string; name: string }[] | undefined>;
 
   songFormSubmitted = output<Song>();
 
@@ -51,7 +74,7 @@ export class SongFormComponent {
     if (song) {
       this.songForm.patchValue({
         title: song.title,
-        artist: song._artist?.name,
+        artist: song._artist?.id || song.artist,
         country: song._company ? song._company.country : null,
         year: song.year.toString(),
         rating: song.rating,
@@ -59,7 +82,6 @@ export class SongFormComponent {
         companies: song._company ? [song._company.name] : [],
       });
 
-      this.songForm.get('artist')?.disable();
       this.songForm.get('country')?.disable();
       this.songForm.get('companies')?.disable();
     }
@@ -77,7 +99,10 @@ export class SongFormComponent {
 
   songForm = this.fb.group({
     title: new FormControl<string | null>(null, Validators.required),
-    artist: new FormControl<string | null>(null, Validators.required),
+    artist: new FormControl<string | null>(null, [
+      Validators.required,
+      artistIdValidator,
+    ]),
     country: new FormControl<string | null>(null, Validators.required),
     year: new FormControl<string | null>(null, [Validators.required]),
     rating: new FormControl<number | null>(null, [
@@ -88,6 +113,37 @@ export class SongFormComponent {
     genres: new FormControl<string[]>([], Validators.required),
     companies: new FormControl<string[]>([], Validators.required),
   });
+
+  ngOnInit() {
+    this.filteredArtists = this.songForm.get('artist')!.valueChanges.pipe(
+      startWith(''),
+      filter((value): value is string => (value ? true : false)),
+      map((value) => {
+        // When user types, value is a string.
+        // When an option is selected, value becomes the artist id.
+        const searchValue =
+          typeof value === 'string' ? value : this.displayArtist(value);
+        return searchValue
+          ? this._filter(searchValue)
+          : this.artistIdMap()?.slice();
+      })
+    );
+  }
+
+  // https://stackoverflow.com/questions/49939310/binding-this-in-angular-material-autocomplete-displaywith-using-angular-5
+  displayArtist = (artistId: string): string => {
+    const artist = this.artistIdMap()?.find((a) => a.id === artistId);
+    return artist ? artist.name : '';
+  };
+
+  private _filter(value: string): { id: string; name: string }[] {
+    const filterValue = value.toLowerCase();
+    return (
+      this.artistIdMap()?.filter((artist) =>
+        artist.name.toLowerCase().includes(filterValue)
+      ) || []
+    );
+  }
 
   addGenre(event: MatChipInputEvent): void {
     const inputValue = (event.value || '').trim();

@@ -1,10 +1,11 @@
-import { inject } from '@angular/core';
+import { computed, inject } from '@angular/core';
 import { tapResponse } from '@ngrx/operators';
 import {
-    patchState,
-    signalStore,
-    withMethods,
-    withState
+  patchState,
+  signalStore,
+  withComputed,
+  withMethods,
+  withState,
 } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { pipe, switchMap, tap } from 'rxjs';
@@ -30,6 +31,20 @@ const initialState: PopulateState = {
 export const PopulateStore = signalStore(
   { providedIn: 'root' },
   withState(initialState),
+  withComputed((store) => ({
+    artistIdMap: computed(() => {
+      const artists = store.artists();
+      if (!artists) return [];
+      const map = artists.map((artist) => {
+        return {
+          id: artist.id,
+          name: artist.name,
+        };
+      });
+
+      return map;
+    }),
+  })),
   withMethods((store, populateSerive = inject(PopulateService)) => ({
     fetchData: rxMethod<void>(
       pipe(

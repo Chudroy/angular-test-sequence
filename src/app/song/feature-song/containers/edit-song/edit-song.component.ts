@@ -27,7 +27,7 @@ export class EditSongComponent {
       return null;
     }
 
-    const artist = artists.find((a) => Number(a.id) === song.artist);
+    const artist = artists.find((a) => Number(a.id) === Number(song.artist));
     const company = companies.find((c) => c.songs.includes(Number(song.id)));
 
     const populatedSong: Song = {
