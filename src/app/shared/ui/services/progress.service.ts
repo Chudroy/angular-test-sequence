@@ -19,8 +19,10 @@ export class ProgressService {
 
   closeDialog() {
     if (!this.dialogRef) {
-      throw Error("Dialog hasn't been opened");
+      console.warn("dialog hasn't been opened");
+      return;
     }
+
     this.dialogRef.close();
   }
 }
