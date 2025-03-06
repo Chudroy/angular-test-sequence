@@ -12,4 +12,14 @@
   }
 
   <h1>{{ headerStore.title() }}</h1>
+
+  <span class="example-spacer"></span>
+
+  <mat-form-field appearance="outline">
+    <mat-label> {{ "language-selector.language" | translate }} </mat-label>
+    <mat-select (selectionChange)="onChangeLanguage($event)">
+      <mat-option value="es">English</mat-option>
+      <mat-option value="en">Castellano</mat-option>
+    </mat-select>
+  </mat-form-field>
 </mat-toolbar>
