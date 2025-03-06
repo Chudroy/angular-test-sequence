@@ -76,8 +76,8 @@ export const SongsStore = signalStore(
 
                   router.navigate(['/']);
 
-                  const message = $localize`Canción creada con éxito`;
-                  const close = $localize`Cerrar`;
+                  const message = `Canción creada con éxito`;
+                  const close = `Cerrar`;
                   snackBarService.open(message, close, {
                     duration: 3000,
                   });
@@ -103,8 +103,8 @@ export const SongsStore = signalStore(
 
                   router.navigate(['/song', song.id]);
 
-                  const message = $localize`Canción editada con éxito`;
-                  const close = $localize`Cerrar`;
+                  const message = `Canción editada con éxito`;
+                  const close = `Cerrar`;
                   snackBarService.open(message, close, {
                     duration: 3000,
                   });

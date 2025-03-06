@@ -14,12 +14,12 @@
     alt="Song poster"
   />
   <mat-card-content>
-    <p i18n>Género</p>
+    <p >Género</p>
     @for (tag of song?.genre; track $index) {
     <mat-chip>{{ tag }}</mat-chip>
     }
     <div class="details">
-      <p i18n>Compañía discográfica:</p>
+      <p >Compañía discográfica:</p>
       @if(song?._company?.name) {
       <mat-chip>{{ song?._company?.name }}</mat-chip>
       } @else { -- }

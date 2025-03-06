@@ -35,8 +35,8 @@ export class SongDetailComponent {
   headerStore = inject(HeaderStore);
   populateStore = inject(PopulateStore);
 
-  deleteTooltip = signal($localize`Borrar canción`);
-  editTooltip = signal($localize`Editar canción`);
+  deleteTooltip = signal(`Borrar canción`);
+  editTooltip = signal(`Editar canción`);
 
   songId = input<string>();
 

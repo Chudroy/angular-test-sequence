@@ -15,7 +15,7 @@ export class AddSongComponent {
   songsStore = inject(SongsStore);
 
   ngOnInit(): void {
-    const title = $localize`Añadir canción`;
+    const title = `Añadir canción`;
     this.headerStore.setHeader({
       title,
       goBack: true,

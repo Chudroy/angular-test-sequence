@@ -4,7 +4,7 @@
 >
   <mat-sidenav mode="over" [opened]="sidenavStore.isOpenSidenav()">
     <div class="side-nav__header">
-      <h2 i18n>Menu</h2>
+      <h2 >Menu</h2>
       <button
         (click)="toggleSidenav()"
         mat-icon-button
@@ -15,15 +15,15 @@
     </div>
     <mat-nav-list>
       <mat-list-item [routerLink]="['/songs']">
-        <div i18n>Canciones <mat-icon>arrow_forward</mat-icon></div>
+        <div >Canciones <mat-icon>arrow_forward</mat-icon></div>
       </mat-list-item>
       <mat-list-item>
-        <div i18n>
+        <div >
           Aristas <mat-icon>arrow_forward</mat-icon>
         </div></mat-list-item
       >
       <mat-list-item>
-        <div i18n>
+        <div >
           Compañías discográficas <mat-icon>arrow_forward</mat-icon>
         </div></mat-list-item
       >

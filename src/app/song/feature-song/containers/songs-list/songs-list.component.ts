@@ -53,13 +53,13 @@ export class SongsListComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    const songsTitle = $localize`Canciones`;
+    const songsTitle = `Canciones`;
     this.headerStore.setHeader({
       title: songsTitle,
       goBack: false,
     });
 
-    const tooltip = $localize`Añadir canción`;
+    const tooltip = `Añadir canción`;
     this.tooltip.set(tooltip);
 
     this.songStore.getSongs();
