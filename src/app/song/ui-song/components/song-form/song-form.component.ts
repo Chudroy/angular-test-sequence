@@ -89,18 +89,12 @@ export class SongFormComponent implements OnInit {
           return c.id.toString();
         }),
       });
+    } else {
+      this.songForm.get('artist')?.disable();
     }
   });
 
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
-
-  readonly countries: string[] = [
-    'Colombia',
-    'England',
-    'Greece',
-    'Philippines',
-    'China',
-  ];
 
   songForm = this.fb.group({
     title: new FormControl<string | null>(null, Validators.required),
