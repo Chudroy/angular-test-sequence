@@ -3,6 +3,7 @@ import { PopulateStore, Song } from 'shared/data-access';
 import { HeaderStore, ProgressService } from 'shared/ui';
 import { SongFormComponent } from 'src/app/song/ui-song/components/song-form/song-form.component';
 import { SongsStore } from '../songs-list/songs-list.signal-store';
+import { SongFormValue } from 'src/app/song/data-access-song/models/song.models';
 
 @Component({
   selector: 'app-add-song',
@@ -28,13 +29,17 @@ export class EditSongComponent {
     }
 
     const artist = artists.find((a) => Number(a.id) === Number(song.artist));
-    const company = companies.find((c) => c.songs.includes(Number(song.id)));
+    const matchingCompanies = companies.filter((c) =>
+      c.songs.includes(Number(song.id))
+    );
 
     const populatedSong: Song = {
       ...song,
       _artist: artist,
-      _company: company,
+      _companies: matchingCompanies,
     };
+
+    
 
     return populatedSong;
   });
@@ -60,8 +65,8 @@ export class EditSongComponent {
     }
   }
 
-  onSubmit($event: Song): void {
-    const song: Song = {
+  onSubmit($event: SongFormValue): void {
+    const song: SongFormValue = {
       ...$event,
       id: this.songId() || '',
     };
