@@ -44,6 +44,18 @@ export const PopulateStore = signalStore(
 
       return map;
     }),
+    companiesIdMap: computed(() => {
+      const companies = store.companies();
+      if (!companies) return [];
+      const map = companies.map((c) => {
+        return {
+          id: c.id,
+          name: c.name,
+        };
+      });
+
+      return map;
+    }),
   })),
   withMethods((store, populateSerive = inject(PopulateService)) => ({
     fetchData: rxMethod<void>(
