@@ -11,5 +11,5 @@ export interface Song {
   rating: number;
   artist: string;
   _artist?: Artist;
-  _company?: Company;
+  _companies?: Company[];
 }
