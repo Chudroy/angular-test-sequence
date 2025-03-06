@@ -21,5 +21,7 @@ export const HeaderStore = signalStore(
       title: string;
       goBack?: boolean;
     }) => patchState(store, { title, goBack }),
+    setTitle: (title: string) => patchState(store, { title }),
+    setGoBack: (goBack: boolean) => patchState(store, { goBack }),
   }))
 );
