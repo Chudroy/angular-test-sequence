@@ -25,7 +25,7 @@ import { PopulateStore, Song } from 'shared/data-access';
     RouterModule,
     MatTooltipModule,
     MatButtonModule,
-    SkeletonComponent
+    SkeletonComponent,
   ],
   templateUrl: './song-detail.component.html',
   styleUrl: './song-detail.component.scss',
@@ -52,14 +52,11 @@ export class SongDetailComponent {
     const artist = artists.find((a) => Number(a.id) === song.artist);
     const company = companies.find((c) => c.songs.includes(Number(song.id)));
 
-    const companyCountries = companies.map((c) => c.country);
-
     const populatedSong: Song = {
       ...song,
       _artist: artist,
       _company: company,
     };
-
 
     return populatedSong;
   });

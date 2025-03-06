@@ -1,18 +1,43 @@
 :host {
+  --card-height: 38rem;
+  --card-width: 32rem;
+
+  display: flex;
+  justify-content: center;
+
+  %card-base {
+    margin: 1rem 1rem 0;
+    width: 90%;
+    max-width: 32rem;
+    height: var(--card-height);
+    width: var(--card-width);
+  }
+
+  %card-image-base {
+    object-fit: cover;
+    max-height: 20rem;
+    max-width: 100%;
+  }
+
+  .song-detail__card {
+    @extend %card-base;
+  }
+
+  .song-detail__card-image {
+    @extend %card-image-base;
+  }
+
   ::ng-deep app-skeleton {
     .skeleton__card {
-      width: 100%;
-      height: 917px;
-      overflow: hidden;
+      @extend %card-base;
+      margin-bottom: 0;
     }
 
     .skeleton__card-image {
+      @extend %card-image-base;
       width: 100%;
       height: 480px;
-      background-color: #ddd;
       position: relative;
-      overflow: hidden;
-      object-fit: cover;
     }
   }
 
