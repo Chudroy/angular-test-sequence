@@ -1,8 +1,10 @@
 form {
   display: flex;
   flex-direction: column;
-  max-width: 90%;
+  width: 90%;
+  max-width: 32rem;
   margin: auto;
+  margin-top: 1rem;
 
   mat-form-field {
     margin-bottom: 0.5rem;

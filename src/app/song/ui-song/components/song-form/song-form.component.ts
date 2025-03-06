@@ -59,16 +59,6 @@ export class SongFormComponent {
       this.songForm.get('artist')?.disable();
       this.songForm.get('country')?.disable();
       this.songForm.get('companies')?.disable();
-    } else {
-      this.songForm.patchValue({
-        title: 'Test',
-        artist: 'Test',
-        country: 'Colombia',
-        year: '2021',
-        rating: 5,
-        genres: ['Rock'],
-        companies: ['Test Company'],
-      });
     }
   });
 
