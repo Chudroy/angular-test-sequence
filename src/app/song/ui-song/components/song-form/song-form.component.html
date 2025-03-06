@@ -1,28 +1,32 @@
 <form [formGroup]="songForm" (ngSubmit)="onSubmit()">
   <mat-form-field appearance="outline">
-    <mat-label i18n>Título</mat-label>
+    <mat-label>{{ "song-form.title" | translate }}</mat-label>
     <input
       matInput
       formControlName="title"
-      placeholder="Indique el título de la canción"
+      placeholder="{{ 'song-form.placeholder.title' | translate }}"
     />
     @if (songForm.get('title')?.hasError('required') &&
     (songForm.get('title')?.touched || songForm.get('title')?.dirty)) {
-    <mat-error i18n>El título es obligatorio</mat-error>
+    <mat-error>{{ "song-form.error.titleRequired" | translate }}</mat-error>
     }
   </mat-form-field>
 
   <mat-form-field appearance="outline">
-    <mat-label i18n>Artista</mat-label>
-    <input matInput formControlName="artist" placeholder="Indique el artista" />
+    <mat-label>{{ "song-form.artist" | translate }}</mat-label>
+    <input
+      matInput
+      formControlName="artist"
+      placeholder="{{ 'song-form.placeholder.artist' | translate }}"
+    />
     @if (songForm.get('artist')?.hasError('required') &&
     (songForm.get('artist')?.touched || songForm.get('artist')?.dirty)) {
-    <mat-error i18n>El artista es obligatorio</mat-error>
+    <mat-error>{{ "song-form.error.artistRequired" | translate }}</mat-error>
     }
   </mat-form-field>
 
   <mat-form-field appearance="outline">
-    <mat-label i18n>Género</mat-label>
+    <mat-label>{{ "song-form.genre" | translate }}</mat-label>
     <mat-chip-grid
       [formControl]="getControl('genres')"
       #genreChipGrid
@@ -38,7 +42,7 @@
       }
     </mat-chip-grid>
     <input
-      placeholder="Añade un género"
+      placeholder="{{ 'song-form.placeholder.genre' | translate }}"
       [matChipInputFor]="genreChipGrid"
       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
       [matChipInputAddOnBlur]="true"
@@ -46,12 +50,12 @@
     />
     @if (songForm.get('genres')?.hasError('required') &&
     (songForm.get('genres')?.touched || songForm.get('genres')?.dirty)) {
-    <mat-error i18n>Al menos un género es requerido</mat-error>
+    <mat-error>{{ "song-form.error.genreRequired" | translate }}</mat-error>
     }
   </mat-form-field>
 
   <mat-form-field appearance="outline">
-    <mat-label i18n>Compañía discográfica</mat-label>
+    <mat-label>{{ "song-form.recordLabel" | translate }}</mat-label>
     <mat-chip-grid
       [formControl]="getControl('companies')"
       #companyChipGrid
@@ -67,7 +71,7 @@
       }
     </mat-chip-grid>
     <input
-      placeholder="Añade una compañía"
+      placeholder="{{ 'song-form.placeholder.company' | translate }}"
       [matChipInputFor]="companyChipGrid"
       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
       [matChipInputAddOnBlur]="true"
@@ -75,12 +79,12 @@
     />
     @if (songForm.get('companies')?.hasError('required') &&
     (songForm.get('companies')?.touched || songForm.get('companies')?.dirty)) {
-    <mat-error i18n>Al menos una compañía es requerida</mat-error>
+    <mat-error>{{ "song-form.error.companyRequired" | translate }}</mat-error>
     }
   </mat-form-field>
 
   <mat-form-field appearance="outline">
-    <mat-label i18n>País</mat-label>
+    <mat-label>{{ "song-form.country" | translate }}</mat-label>
     <mat-select formControlName="country">
       @for (c of countries; track $index) {
       <mat-option [value]="c">
@@ -90,45 +94,47 @@
     </mat-select>
     @if (songForm.get('country')?.hasError('required') &&
     (songForm.get('country')?.touched || songForm.get('country')?.dirty)) {
-    <mat-error i18n>El país es obligatorio</mat-error>
+    <mat-error>{{ "song-form.error.countryRequired" | translate }}</mat-error>
     }
   </mat-form-field>
 
   <mat-form-field appearance="outline">
-    <mat-label i18n>Año</mat-label>
+    <mat-label>{{ "song-form.year" | translate }}</mat-label>
     <input
       matInput
       [matDatepicker]="picker"
       formControlName="year"
-      placeholder="Indique el año"
+      placeholder="{{ 'song-form.placeholder.year' | translate }}"
     />
     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
     @if (songForm.get('year')?.hasError('required') &&
     (songForm.get('year')?.touched || songForm.get('year')?.dirty)) {
-    <mat-error i18n>El año es obligatorio</mat-error>
+    <mat-error>{{ "song-form.error.yearRequired" | translate }}</mat-error>
     }
   </mat-form-field>
 
   <mat-form-field appearance="outline">
-    <mat-label i18n>Puntuación</mat-label>
+    <mat-label>{{ "song-form.rating" | translate }}</mat-label>
     <input
       matInput
       formControlName="rating"
       type="number"
-      placeholder="Indique la puntuación"
+      placeholder="{{ 'song-form.placeholder.rating' | translate }}"
     />
     @if (songForm.get('rating')?.hasError('required') &&
     (songForm.get('rating')?.touched || songForm.get('rating')?.dirty)) {
-    <mat-error i18n>La puntuación es obligatoria</mat-error>
+    <mat-error>{{ "song-form.error.ratingRequired" | translate }}</mat-error>
     } @if (songForm.get('rating')?.hasError('min') &&
     (songForm.get('rating')?.touched || songForm.get('rating')?.dirty)) {
-    <mat-error i18n>La puntuación mínima es 1</mat-error>
+    <mat-error>{{ "song-form.error.ratingMin" | translate }}</mat-error>
     } @if (songForm.get('rating')?.hasError('max') &&
     (songForm.get('rating')?.touched || songForm.get('rating')?.dirty)) {
-    <mat-error i18n>La puntuación máxima es 10</mat-error>
+    <mat-error>{{ "song-form.error.ratingMax" | translate }}</mat-error>
     }
   </mat-form-field>
 
-  <button mat-raised-button color="primary" type="submit" i18n>Guardar</button>
+  <button mat-raised-button color="primary" type="submit">
+    {{ "song-form.save" | translate }}
+  </button>
 </form>

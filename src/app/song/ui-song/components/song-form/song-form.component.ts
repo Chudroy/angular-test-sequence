@@ -16,6 +16,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { TranslatePipe } from '@ngx-translate/core';
+
 import { Song } from 'shared/data-access';
 @Component({
   selector: 'app-song-form',
@@ -30,6 +32,7 @@ import { Song } from 'shared/data-access';
     MatInputModule,
     MatButtonModule,
     MatSelectModule,
+    TranslatePipe,
   ],
   providers: [provideLuxonDateAdapter()],
   templateUrl: './song-form.component.html',
