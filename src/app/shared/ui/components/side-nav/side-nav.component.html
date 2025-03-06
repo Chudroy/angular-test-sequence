@@ -1,6 +1,6 @@
 <mat-sidenav-container
   class="example-container"
-  (backdropClick)="toggleSidenav($event)"
+  (backdropClick)="toggleSidenav()"
 >
   <mat-sidenav mode="over" [opened]="sidenavStore.isOpenSidenav()">
     <div class="side-nav__header">
@@ -28,6 +28,8 @@
         </div></mat-list-item
       >
     </mat-nav-list>
+
+ 
   </mat-sidenav>
 
   <mat-sidenav-content>

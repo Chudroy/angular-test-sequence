@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { RouterModule } from '@angular/router';
 import { SidenavStore } from './side-nav.signal-store';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-side-nav',
@@ -22,7 +23,7 @@ import { MatButtonModule } from '@angular/material/button';
 export class SideNavComponent {
   sidenavStore = inject(SidenavStore);
 
-  toggleSidenav($event: void) {
+  toggleSidenav() {
     this.sidenavStore.toggleSidenav();
   }
 }
