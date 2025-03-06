@@ -5,7 +5,7 @@ import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { filter, pipe, switchMap, tap } from 'rxjs';
 import { Song } from 'shared/data-access';
-import { ProgressService } from 'shared/ui';
+import { ProgressService } from 'src/app/shared/ui-common';
 import { SongService } from 'src/app/song/data-access-song/services/song/song.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SongFormValue } from 'src/app/song/data-access-song/models/song.models';

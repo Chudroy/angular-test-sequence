@@ -15,7 +15,7 @@ import { RouterModule } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { firstValueFrom, tap } from 'rxjs';
 import { PopulateStore } from 'shared/data-access';
-import { HeaderStore, SkeletonComponent } from 'shared/ui';
+import { HeaderStore, SkeletonComponent } from 'src/app/shared/ui-common';
 import { SongsStore } from './songs-list.signal-store';
 
 @Component({

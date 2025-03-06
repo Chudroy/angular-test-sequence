@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { HeaderComponent, SideNavComponent, SidenavStore } from 'shared/ui';
+import { HeaderComponent, SideNavComponent, SidenavStore } from 'src/app/shared/ui-common';
 import { Location } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
 

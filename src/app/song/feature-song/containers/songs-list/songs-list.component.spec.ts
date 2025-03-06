@@ -4,7 +4,7 @@ import { provideRouter } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { of, Subject } from 'rxjs';
 import { Artist, PopulateStore, Song } from 'shared/data-access';
-import { HeaderStore } from 'shared/ui';
+import { HeaderStore } from 'src/app/shared/ui-common';
 import { SongsListComponent } from './songs-list.component';
 import { SongsStore } from './songs-list.signal-store';
 

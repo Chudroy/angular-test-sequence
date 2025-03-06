@@ -10,8 +10,8 @@ import {
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { pipe, switchMap, tap } from 'rxjs';
 import { Song } from '../models';
-import { Artist } from '../models/artist.models';
-import { Company } from '../models/company.models';
+import { Artist } from '../models';
+import { Company } from '../models';
 import { PopulateService } from '../services/populate.service';
 
 interface PopulateState {
