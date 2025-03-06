@@ -3,12 +3,16 @@ import { inject, Injectable } from '@angular/core';
 import { catchError, Observable, tap, throwError } from 'rxjs';
 import { Song } from 'src/app/shared/data-access';
 import { API_URL } from 'util-environment';
+import { SongFormValue } from '../../models/song.models';
+import { CompanyService } from 'src/app/company/data-access-company';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SongService {
   #http = inject(HttpClient);
+  companyService = inject(CompanyService);
+
   readonly #API_URL = inject(API_URL);
   readonly #SONGS_URL = this.#API_URL + '/songs';
 
@@ -41,7 +45,7 @@ export class SongService {
     );
   }
 
-  addSong(song: Song) {
+  addSong(song: SongFormValue) {
     return this.#http.post<Song>(this.#SONGS_URL, song).pipe(
       catchError((error) => {
         console.error(error);
@@ -50,7 +54,15 @@ export class SongService {
     );
   }
 
-  editSong(song: Song) {
+  editSong(song: SongFormValue) {
+    if (!song.id) {
+      throw new Error('Missing ID');
+    }
+
+    this.companyService.editCompanies(song.id, song.companies);
+
+    delete song.companies;
+
     return this.#http.patch<Song>(this.#EDIT_SONG_URL(song.id), song).pipe(
       catchError((error) => {
         console.error(error);
