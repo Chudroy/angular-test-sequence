@@ -2,6 +2,8 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent, SideNavComponent, SidenavStore } from 'shared/ui';
 import { Location } from '@angular/common';
+import { TranslateService } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-layout',
   imports: [RouterOutlet, HeaderComponent, SideNavComponent],
@@ -12,6 +14,7 @@ import { Location } from '@angular/common';
 export class LayoutComponent {
   sidenavStore = inject(SidenavStore);
   location = inject(Location);
+  translateService = inject(TranslateService);
 
   onToggleSidenav() {
     this.sidenavStore.toggleSidenav();
@@ -19,5 +22,10 @@ export class LayoutComponent {
 
   onGoBack() {
     this.location.back();
+  }
+
+  onChangeLanguage($event: string) {
+    const language = $event;
+    this.translateService.use(language);
   }
 }

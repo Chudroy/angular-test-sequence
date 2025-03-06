@@ -1,4 +1,8 @@
 <app-side-nav>
-  <app-header (toggleSidenav)="onToggleSidenav()" (goBack)="onGoBack()"></app-header>
+  <app-header
+    (toggleSidenav)="onToggleSidenav()"
+    (goBack)="onGoBack()"
+    (changeLanguage)="onChangeLanguage($event)"
+  ></app-header>
   <router-outlet />
 </app-side-nav>
