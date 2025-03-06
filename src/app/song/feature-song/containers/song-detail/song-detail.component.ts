@@ -50,7 +50,9 @@ export class SongDetailComponent {
     }
 
     const artist = artists.find((a) => Number(a.id) === Number(song.artist));
-    const matchingCompanies = companies.filter(c => c.songs.includes(Number(song.id)));
+    const matchingCompanies = companies.filter((c) =>
+      c.songs.includes(Number(song.id))
+    );
 
     const populatedSong: Song = {
       ...song,
