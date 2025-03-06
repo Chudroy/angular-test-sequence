@@ -37,5 +37,10 @@ export class CompanyService {
         })
         .subscribe();
     }
+
+    // Race condition in json-server, it takes longer to update its server than to make a new GET request.
+    setTimeout(() => {
+      this.populateStore.fetchData();
+    }, 0);
   }
 }
