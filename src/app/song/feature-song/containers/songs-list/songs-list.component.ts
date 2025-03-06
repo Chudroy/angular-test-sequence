@@ -12,11 +12,11 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import { firstValueFrom, tap } from 'rxjs';
 import { PopulateStore } from 'shared/data-access';
 import { HeaderStore, SkeletonComponent } from 'shared/ui';
 import { SongsStore } from './songs-list.signal-store';
-import { TranslateService } from '@ngx-translate/core';
-import { firstValueFrom, take, tap } from 'rxjs';
 
 @Component({
   selector: 'app-songs-list',
