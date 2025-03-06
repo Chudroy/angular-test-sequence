@@ -31,7 +31,8 @@
       "yearRequired": "El año es obligatorio",
       "ratingRequired": "La puntuación es obligatoria",
       "ratingMin": "La puntuación mínima es 1",
-      "ratingMax": "La puntuación máxima es 10"
+      "ratingMax": "La puntuación máxima es 10",
+      "invalidArtist": "Por favor selecciona un artista de la lista"
     }
   }
 }

@@ -31,7 +31,8 @@
       "yearRequired": "Year is required",
       "ratingRequired": "Rating is required",
       "ratingMin": "Minimum rating is 1",
-      "ratingMax": "Maximum rating is 10"
+      "ratingMax": "Maximum rating is 10",
+      "invalidArtist": "Please select an artist from the list"
     }
   }
 }
