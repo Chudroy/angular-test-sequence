@@ -18,7 +18,7 @@ import {
   withEventReplay,
 } from '@angular/platform-browser';
 import { provideTranslateService, TranslateLoader } from '@ngx-translate/core';
-import { API_URL } from 'util-environment';
+import { API_URL, environment } from 'util-environment';
 import { routes } from './app.routes';
 import {
   delayInterceptorInterceptor,
@@ -52,7 +52,7 @@ export const appConfig: ApplicationConfig = {
     }),
     {
       provide: API_URL,
-      useValue: 'http://localhost:3000',
+      useValue: environment.apiUrl,
     },
     {
       provide: MAT_DATE_LOCALE,
