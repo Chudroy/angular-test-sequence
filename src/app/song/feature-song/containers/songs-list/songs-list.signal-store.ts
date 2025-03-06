@@ -8,6 +8,7 @@ import { Song } from 'shared/data-access';
 import { ProgressService } from 'shared/ui';
 import { SongService } from 'src/app/song/data-access-song/services/song/song.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { SongFormValue } from 'src/app/song/data-access-song/models/song.models';
 
 interface SongState {
   songDetail: Song | null;
@@ -62,7 +63,7 @@ export const SongsStore = signalStore(
           )
         )
       ),
-      addSong: rxMethod<Song>(
+      addSong: rxMethod<SongFormValue>(
         pipe(
           tap(() => {
             progressService.openDialog();
@@ -89,7 +90,7 @@ export const SongsStore = signalStore(
           )
         )
       ),
-      editSong: rxMethod<Song>(
+      editSong: rxMethod<SongFormValue>(
         pipe(
           tap(() => {
             progressService.openDialog();
