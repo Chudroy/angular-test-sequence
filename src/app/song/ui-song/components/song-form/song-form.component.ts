@@ -71,43 +71,10 @@ export class SongFormComponent implements OnInit {
   fb = inject(FormBuilder);
 
   song = input<Song>();
-
-  artistIdMap = input.required<
-    {
-      id: string;
-      name: string;
-    }[]
-  >();
-
-  companyIdMap = input.required<
-    {
-      id: string;
-      name: string;
-    }[]
-  >();
-
-  filteredArtists!: Observable<{ id: string; name: string }[] | undefined>;
+  artistIdMap = input.required<{ id: string; name: string }[]>();
+  companyIdMap = input.required<{ id: string; name: string }[]>();
 
   songFormSubmitted = output<SongFormValue>();
-
-  populateSongForm = effect(() => {
-    const song = this.song();
-
-    if (song) {
-      this.songForm.patchValue({
-        title: song.title,
-        artist: song._artist?.id || song.artist,
-        year: song.year.toString(),
-        rating: song.rating,
-        genre: song.genre,
-        companies: song._companies?.map((c) => {
-          return c.id.toString();
-        }),
-      });
-    } else {
-      this.songForm.get('artist')?.disable();
-    }
-  });
 
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
@@ -117,7 +84,7 @@ export class SongFormComponent implements OnInit {
       Validators.required,
       artistIdValidator,
     ]),
-    year: new FormControl<string | null>(null, [Validators.required]),
+    year: new FormControl<string | null>(null, Validators.required),
     rating: new FormControl<number | null>(null, [
       Validators.required,
       Validators.min(1),
@@ -127,88 +94,89 @@ export class SongFormComponent implements OnInit {
     companies: new FormControl<string[]>([]),
   });
 
-  ngOnInit() {
-    this.filteredArtists = this.songForm.get('artist')!.valueChanges.pipe(
+  filteredArtists!: Observable<{ id: string; name: string }[] | undefined>;
+
+  populateSongForm = effect(() => {
+    const currentSong = this.song();
+    if (currentSong) {
+      this.songForm.patchValue({
+        title: currentSong.title,
+        artist: currentSong._artist?.id || currentSong.artist,
+        year: currentSong.year.toString(),
+        rating: currentSong.rating,
+        genre: currentSong.genre,
+        companies: currentSong._companies?.map((c) => c.id.toString()),
+      });
+    } else {
+      this.getControl('artist').disable();
+    }
+  });
+
+  ngOnInit(): void {
+    this.filteredArtists = this.getControl('artist').valueChanges.pipe(
       startWith(''),
-      filter((value): value is string => (value ? true : false)),
-      map((value) => {
-        // When user types, value is a string.
-        // When an option is selected, value becomes the artist id.
-        const searchValue =
-          typeof value === 'string' ? value : this.displayArtist(value);
-        return searchValue
-          ? this._filter(searchValue)
-          : this.artistIdMap()?.slice();
-      })
+      filter((value): value is string => Boolean(value)),
+      map((value) =>
+        this.filterArtists(
+          typeof value === 'string' ? value : this.displayArtist(value)
+        )
+      )
     );
   }
 
-  // https://stackoverflow.com/questions/49939310/binding-this-in-angular-material-autocomplete-displaywith-using-angular-5
   displayArtist = (artistId: string): string => {
     const artist = this.artistIdMap()?.find((a) => a.id === artistId);
     return artist ? artist.name : '';
   };
 
-  private _filter(value: string): { id: string; name: string }[] {
-    const filterValue = value.toLowerCase();
+  private filterArtists(value: string): { id: string; name: string }[] {
+    const lowerValue = value.toLowerCase();
     return (
       this.artistIdMap()?.filter((artist) =>
-        artist.name.toLowerCase().includes(filterValue)
+        artist.name.toLowerCase().includes(lowerValue)
       ) || []
     );
   }
 
   addGenre(event: MatChipInputEvent): void {
-    const inputValue = (event.value || '').trim();
-    if (inputValue) {
-      const currentGenres = this.songForm.value.genre;
-      this.songForm.patchValue({
-        genre: [...(currentGenres || []), inputValue],
-      });
+    const newGenre = (event.value || '').trim();
+    if (newGenre) {
+      const genres = this.songForm.value.genre || [];
+      this.songForm.patchValue({ genre: [...genres, newGenre] });
     }
     event.chipInput?.clear();
   }
 
   removeGenre(genre: string): void {
-    const currentGenres = this.songForm.value.genre;
-    const updatedGenres = currentGenres?.filter((g: string) => g !== genre);
+    const updatedGenres = this.songForm.value.genre?.filter((g) => g !== genre);
     this.songForm.patchValue({ genre: updatedGenres });
   }
 
   addCompany(event: MatChipInputEvent): void {
-    const inputValue = (event.value || '').trim();
-    if (inputValue) {
-      const currentCompanies = this.songForm.value.companies;
-      this.songForm.patchValue({
-        companies: [...(currentCompanies || []), inputValue],
-      });
+    const newCompany = (event.value || '').trim();
+    if (newCompany) {
+      const companies = this.songForm.value.companies || [];
+      this.songForm.patchValue({ companies: [...companies, newCompany] });
     }
     event.chipInput?.clear();
   }
 
   removeCompany(company: string): void {
-    const currentCompanies = this.songForm.value.companies;
-    const updatedCompanies = currentCompanies?.filter(
-      (c: string) => c !== company
+    const updatedCompanies = this.songForm.value.companies?.filter(
+      (c) => c !== company
     );
     this.songForm.patchValue({ companies: updatedCompanies });
   }
 
   onSubmit(): void {
     if (this.songForm.valid) {
-      this.songFormSubmitted.emit(
-        this.songForm.value as unknown as SongFormValue
-      );
+      this.songFormSubmitted.emit(this.songForm.value as SongFormValue);
     }
   }
 
   getControl(name: string): FormControl {
-    const ctrl = this.songForm.get(name);
-
-    if (!ctrl) {
-      throw new Error(`Control ${name} not found`);
-    }
-
-    return ctrl as FormControl;
+    const control = this.songForm.get(name);
+    if (!control) throw new Error(`Control ${name} not found`);
+    return control as FormControl;
   }
 }
