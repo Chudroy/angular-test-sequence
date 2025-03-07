@@ -31,18 +31,6 @@ import { Song } from 'shared/data-access';
 import { SongFormValue } from 'src/app/song/data-access-song/models/song.models';
 import { artistIdValidator } from 'util-song';
 
-export const LUXON_DATE_FORMATS = {
-  parse: {
-    dateInput: 'MM/dd/yyyy',
-  },
-  display: {
-    dateInput: 'MM/dd/yyyy',
-    monthYearLabel: 'LLL yyyy',
-    dateA11yLabel: 'dd LLL yyyy',
-    monthYearA11yLabel: 'LLLL yyyy',
-  },
-};
-
 @Component({
   selector: 'app-song-form',
   imports: [
@@ -59,10 +47,6 @@ export const LUXON_DATE_FORMATS = {
     TranslatePipe,
     MatAutocompleteModule,
     AsyncPipe,
-  ],
-  providers: [
-    provideLuxonDateAdapter(),
-    { provide: MAT_DATE_FORMATS, useValue: LUXON_DATE_FORMATS },
   ],
   templateUrl: './song-form.component.html',
   styleUrl: './song-form.component.scss',
