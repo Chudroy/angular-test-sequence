@@ -1,11 +1,11 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpInterceptorFn } from '@angular/common/http';
 
-import { delayInterceptorInterceptor } from './delay-interceptor.interceptor';
+import { delayInterceptor } from './delay.interceptor';
 
 describe('delayInterceptorInterceptor', () => {
-  const interceptor: HttpInterceptorFn = (req, next) => 
-    TestBed.runInInjectionContext(() => delayInterceptorInterceptor(req, next));
+  const interceptor: HttpInterceptorFn = (req, next) =>
+    TestBed.runInInjectionContext(() => delayInterceptor(req, next));
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
