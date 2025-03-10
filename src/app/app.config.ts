@@ -27,7 +27,7 @@ import {
 } from 'util-environment';
 import { routes } from './app.routes';
 import {
-  delayInterceptorInterceptor,
+  delayInterceptor,
   PopulateStore,
 } from './shared/data-access';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -44,7 +44,7 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(withEventReplay()),
     provideHttpClient(
       withFetch(),
-      withInterceptors([delayInterceptorInterceptor])
+      withInterceptors([delayInterceptor])
     ),
     provideTranslateService({
       defaultLanguage: 'es',
