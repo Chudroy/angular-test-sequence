@@ -4,6 +4,9 @@
   "newProjectRoot": "projects",
   "projects": {
     "angular-test-sequence": {
+      "i18n": {
+        "sourceLocale": "es"
+      },
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -20,10 +23,7 @@
             "outputPath": "dist/angular-test-sequence",
             "index": "src/index.html",
             "browser": "src/main.ts",
-            "polyfills": [
-              "zone.js",
-              "@angular/localize/init"
-            ],
+            "polyfills": ["zone.js", "@angular/localize/init"],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [

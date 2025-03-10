@@ -26,10 +26,7 @@ import {
   LUXON_DATE_FORMATS,
 } from 'util-environment';
 import { routes } from './app.routes';
-import {
-  delayInterceptor,
-  PopulateStore,
-} from './shared/data-access';
+import { delayInterceptor, PopulateStore } from './shared/data-access';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { provideLuxonDateAdapter } from '@angular/material-luxon-adapter';
 
@@ -42,10 +39,7 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes, withComponentInputBinding()),
     provideClientHydration(withEventReplay()),
-    provideHttpClient(
-      withFetch(),
-      withInterceptors([delayInterceptor])
-    ),
+    provideHttpClient(withFetch(), withInterceptors([delayInterceptor])),
     provideTranslateService({
       defaultLanguage: 'es',
       loader: {
@@ -57,7 +51,6 @@ export const appConfig: ApplicationConfig = {
     provideAppInitializer(() => {
       inject(PopulateStore).fetchData();
     }),
-    provideLuxonDateAdapter(),
     {
       provide: API_URL,
       useValue: environment.apiUrl,
@@ -66,10 +59,5 @@ export const appConfig: ApplicationConfig = {
       provide: MAT_DATE_LOCALE,
       useValue: DEFAULT_LOCALE,
     },
-    {
-      provide: LOCALE_ID,
-      useValue: DEFAULT_LOCALE,
-    },
-    { provide: MAT_DATE_FORMATS, useValue: LUXON_DATE_FORMATS },
   ],
 };

@@ -29,6 +29,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { filter, map, Observable, startWith } from 'rxjs';
 import { Song } from 'shared/data-access';
 import { SongFormValue } from 'src/app/song/data-access-song/models/song.models';
+import { LUXON_DATE_FORMATS } from 'util-environment';
 import { artistIdValidator } from 'util-song';
 
 @Component({
@@ -47,6 +48,10 @@ import { artistIdValidator } from 'util-song';
     TranslatePipe,
     MatAutocompleteModule,
     AsyncPipe,
+  ],
+  providers: [
+    provideLuxonDateAdapter(),
+    { provide: MAT_DATE_FORMATS, useValue: LUXON_DATE_FORMATS },
   ],
   templateUrl: './song-form.component.html',
   styleUrl: './song-form.component.scss',
