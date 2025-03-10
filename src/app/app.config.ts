@@ -1,6 +1,7 @@
 import {
   ApplicationConfig,
   inject,
+  LOCALE_ID,
   provideAppInitializer,
   provideZoneChangeDetection,
 } from '@angular/core';
@@ -12,19 +13,25 @@ import {
   withFetch,
   withInterceptors,
 } from '@angular/common/http';
-import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import {
   provideClientHydration,
   withEventReplay,
 } from '@angular/platform-browser';
 import { provideTranslateService, TranslateLoader } from '@ngx-translate/core';
-import { API_URL, environment } from 'util-environment';
+import {
+  API_URL,
+  environment,
+  DEFAULT_LOCALE,
+  LUXON_DATE_FORMATS,
+} from 'util-environment';
 import { routes } from './app.routes';
 import {
   delayInterceptorInterceptor,
   PopulateStore,
 } from './shared/data-access';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { provideLuxonDateAdapter } from '@angular/material-luxon-adapter';
 
 const httpLoaderFactory: (http: HttpClient) => TranslateHttpLoader = (
   http: HttpClient
@@ -50,13 +57,19 @@ export const appConfig: ApplicationConfig = {
     provideAppInitializer(() => {
       inject(PopulateStore).fetchData();
     }),
+    provideLuxonDateAdapter(),
     {
       provide: API_URL,
       useValue: environment.apiUrl,
     },
     {
       provide: MAT_DATE_LOCALE,
-      useValue: 'es-ES',
+      useValue: DEFAULT_LOCALE,
     },
+    {
+      provide: LOCALE_ID,
+      useValue: DEFAULT_LOCALE,
+    },
+    { provide: MAT_DATE_FORMATS, useValue: LUXON_DATE_FORMATS },
   ],
 };
