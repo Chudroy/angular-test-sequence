@@ -3,6 +3,7 @@
 Para levantar el json-server: `npm run db:start`
 Para levantar la aplicación de Angular: `npm run start`
 tests unitarios: `npm run test`
+tests e2e: `npm run cy:open`
 
 ## Introducción
 
